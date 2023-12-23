@@ -8,7 +8,7 @@
 <hr>
     <h4 align="center">We are team Horizon and we want to show you our application:</h4>
 <p align="center">    
-    <p>Image to be added.</p>
+    <p align="center">Image to be added.</p>
 </p>
 <hr>
     
@@ -46,7 +46,7 @@
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
     
 <summary>Screenshots</summary>
-<details>
+<details open="open">
 <summary>Show</summary>
 <br>
     
@@ -63,7 +63,7 @@
     
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
     
-##  Used technologies
+##  Used Technologies
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Visual_Studio_Icon_2022.svg/1200px-Visual_Studio_Icon_2022.svg.png" width="20" alt="Visual Studio 2022 Logo"> <a href="https://visualstudio.microsoft.com/vs/">Visual Studio 2022</a>
 - <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png" width="20" alt="Raylib Logo"> <a href="https://www.raylib.com/">Raylib</a>
 - <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" alt="GitHub Logo"> <a href="https://github.com/">GitHub</a>
@@ -95,7 +95,7 @@
     
 <b>Teodor T. Tanev (Back-End Developer)</b> <br>
     Email: <a>TDTanev21@codingburgas.bg</a> <br>
-    
+
     
 </p>
     
@@ -103,10 +103,13 @@
     
 <p>To download our project, clone our repository by pasting this command in your command prompt:</p>
     
-<pre>git clone "https://github.com/BADimov21/Horizon.git"</pre>
-    
+<pre align="center">git clone "https://github.com/BADimov21/Horizon.git"</pre>
+
 <h3 align="center"> Thank you and enjoy our app! <h3>
 <h4 align="center"> Made with ❤️, C++ & Raylib </h4>
+
 <hr>
-<h4 align="center"> Created by team Horizon | &copy 2023 All rights reserved.</h4>
+
+<h6 align="center">This README was designed by Bozhidar Dimov, the Front-End Developer of Team Horizon.</h6>
+<h4 align="center"> Created by Team Horizon | &copy 2023 All rights reserved.</h4>
 <h2 align="center">Thanks for checking out our repo, show us some ❤️ by giving our repo a ⭐️!</h2>
