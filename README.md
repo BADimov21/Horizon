@@ -74,7 +74,7 @@
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg/2203px-Microsoft_Office_Teams_%282018%E2%80%93present%29.svg.png" width="20" alt="MS Teams Logo"> <a href="https://www.microsoft.com/en-us/microsoft-teams/group-chat-software">MS Teams</a>
 -----------------------------------------------------------------------------------------------------------------------------------
 - 👩🏻‍💻 Programing languages: <img src="https://brandslogos.com/wp-content/uploads/thumbs/c-logo-vector.svg" width="20" alt="C++ Logo"> <a href="https://cplusplus.com/">C++</a>
-- 🗃️ Graphic Libraries: <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png" width="20" alt="Raylib Logo"> <a href="https://www.raylib.com/">Raylib</a>
+- 🗃️ Graphics Libraries: <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png" width="20" alt="Raylib Logo"> <a href="https://www.raylib.com/">Raylib</a>
     
     
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
