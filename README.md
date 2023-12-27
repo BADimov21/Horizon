@@ -18,6 +18,7 @@
     <img src = "https://img.shields.io/github/repo-size/BADimov21/Horizon?style=for-the-badge">
     <img src = "https://img.shields.io/github/last-commit/BADimov21/Horizon?style=for-the-badge">
     <img src = "https://img.shields.io/github/languages/top/BADimov21/Horizon?style=for-the-badge">
+    <img src = "https://img.shields.io/github/issues-closed/BADimov21/Horizon?style=for-the-badge">
 <p>
 <br>
     
@@ -65,7 +66,6 @@
     
 ##  Used Technologies
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Visual_Studio_Icon_2022.svg/1200px-Visual_Studio_Icon_2022.svg.png" width="20" alt="Visual Studio 2022 Logo"> <a href="https://visualstudio.microsoft.com/vs/">Visual Studio 2022</a>
-- <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png" width="20" alt="Raylib Logo"> <a href="https://www.raylib.com/">Raylib</a>
 - <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" alt="GitHub Logo"> <a href="https://github.com/">GitHub</a>
 - <img src="https://www.freepnglogos.com/uploads/discord-logo-png/concours-discord-cartes-voeux-fortnite-france-6.png" width="20" alt="Discord Logo"> <a href="https://discord.com/">Discord</a>
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="https://en.wikipedia.org/wiki/Microsoft_Word">MS Word</a>
@@ -74,6 +74,7 @@
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Microsoft_Office_Teams_%282018%E2%80%93present%29.svg/2203px-Microsoft_Office_Teams_%282018%E2%80%93present%29.svg.png" width="20" alt="MS Teams Logo"> <a href="https://www.microsoft.com/en-us/microsoft-teams/group-chat-software">MS Teams</a>
 -----------------------------------------------------------------------------------------------------------------------------------
 - 👩🏻‍💻 Programing languages: <img src="https://brandslogos.com/wp-content/uploads/thumbs/c-logo-vector.svg" width="20" alt="C++ Logo"> <a href="https://cplusplus.com/">C++</a>
+- 🗃️ Graphic Libraries: <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Raylib_logo.png" width="20" alt="Raylib Logo"> <a href="https://www.raylib.com/">Raylib</a>
     
     
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
