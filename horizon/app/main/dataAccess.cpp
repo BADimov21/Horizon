@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "dataAccess.h"
 
 const bool DataAccess::doesAccountExist(const std::string& targetUsername) const {

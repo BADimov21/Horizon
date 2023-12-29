@@ -1,2 +1,8 @@
 ﻿  login.cpp
+C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\main\login.cpp(156,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\main\login.cpp(157,36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\main\login.cpp(159,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\main\login.cpp(177,41): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\main\login.cpp(178,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\main\login.cpp(179,37): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   main.vcxproj -> C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\x64\Debug\main.exe
