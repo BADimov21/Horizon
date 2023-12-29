@@ -131,10 +131,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dataAccess.cpp" />
+    <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataAccess.h" />
+    <ClInclude Include="login.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

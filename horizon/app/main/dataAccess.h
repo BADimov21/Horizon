@@ -1,9 +1,11 @@
 #pragma once
 
-#include <string>
+#include "pch.h"
 
 class DataAccess {
 public:
-    bool doesUsernameExist(const std::string& targetUsername);
-    void addAccount(const std::string& username, const std::string& password);
+
+    const bool doesAccountExist(const std::string& targetUsername) const;
+    const bool isPasswordCorrect(const std::string& targetUsername, const std::string& targetPassword) const;
+    const void addAccount(const std::string& username, const std::string& password) const;
 };
