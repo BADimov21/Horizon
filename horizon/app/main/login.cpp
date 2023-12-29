@@ -2,18 +2,36 @@
 #include "login.h"
 #include "dataAccess.h"
 
-void existingUser(bool checkUser, std::string& username, std::string& password) {
+void User::getPassword(std::string& password) {
+	password.clear();
+	char ch;
+	while ((ch = _getch()) != '\r') {
+		if (ch == '\b') {
+			if (!password.empty()) {
+				std::cout << "\b \b";
+				password.pop_back();
+			}
+		}
+		else {
+			password += ch;
+			std::cout << "*";
+		}
+	}
+	std::cout << '\n';
+}
+
+void User::existingUser(bool& checkUser, std::string& username, std::string& password) {
 	DataAccess* account = new DataAccess();
 	std::getline(std::cin, username);
+
 	while (!checkUser) {
 		std::cout << "Please enter your username: ";
 		std::getline(std::cin, username);
+
 		if (account->doesAccountExist(username)) {
 			std::cout << "USERNAME: " << username << "\n";
-			std::cout << "Please enter your password: ";
-			std::cout << "\n";
-
-			std::getline(std::cin, password);
+			std::cout << "Please enter your password: " << "\n";
+			getPassword(password);
 
 			if (account->isPasswordCorrect(username, password)) {
 				std::cout << "Welcome, " << username << "!" << "\n";
@@ -32,7 +50,8 @@ void existingUser(bool checkUser, std::string& username, std::string& password) 
 	delete account;
 }
 
-void newUser(std::string& username, std::string& password) {
+
+void User::newUser(std::string& username, std::string& password) {
 	DataAccess* account = new DataAccess();
 	bool check = false;
 
@@ -43,15 +62,16 @@ void newUser(std::string& username, std::string& password) {
 		std::cin >> username;
 
 		if (account->doesAccountExist(username)) {
-			std::cout << "Account already exists. Please try again with a different username!\n";
+			std::cout << "Account already exists. Please try again with a different username!" << "\n";
 		}
 		else {
 			std::cout << "\n";
 			std::cout << "Enter your desired password: ";
-			std::cin >> password;
+			getPassword(password);
 
 			account->addAccount(username, password);
-			std::cout << "Thank you, " << username << "! Make sure to keep your credentials safe!\n";
+			std::cout << "Thank you, " << username << "! Make sure to keep your credentials safe!" << "\n";
+			std::cout << "\n";
 			check = true;
 		}
 	}
@@ -63,30 +83,35 @@ void login() {
 	const int screenHeight = 975;
 
     DataAccess* account = new DataAccess();
+	User* user = new User();
+
 	std::string username;
 	std::string password;
 
-    char choice;
-    bool checkUser = false;
+	bool checkUser = false;
 	bool validChoice = false;
+    char choice;
 
     std::cout << "Welcome to Horizon!" << "\n";
-    std::cout << "Do you have an account (A) or would you like to create one (B)? (A / B)";
-
+	std::cout << "Tomorrow is not certain, do it now!" << "\n";
+	std::cout << "With the service of our company - 'Horizon'!" << "\n";
+    std::cout << "Do you have an account (A) or would you like to create one (B)? (A / B)" << "\n";
 	std::cin.get(choice);
 
 	while (!validChoice) {
 		switch (choice) {
 		case 'A':
-			existingUser(checkUser, username, password);
+			user->existingUser(checkUser, username, password);
 			validChoice = true;
 			break;
+
 		case 'B':
-			newUser(username, password);
+			user->newUser(username, password);
 			validChoice = true;
 			break;
+
 		default:
-			std::cout << "The operation you chose is not available. Please choose from the ones mentioned!\n";
+			std::cout << "The operation you chose is not available. Please choose from the ones mentioned!" << "\n";
 			std::cout << "\n";
 			std::cin.clear();
 			while (std::cin.get() != '\n');
@@ -110,4 +135,5 @@ void login() {
     CloseWindow();
 
 	delete account;
+	delete user;
 }

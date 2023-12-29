@@ -24,8 +24,7 @@ const bool DataAccess::isPasswordCorrect(const std::string& targetUsername, cons
 
     while (std::getline(file, line)) {
         std::istringstream iss(line);
-        std::string storedUsername;
-        std::string storedPassword;
+        std::string storedUsername, storedPassword;
 
         if (std::getline(iss, storedUsername, ',') && std::getline(iss, storedPassword, ',')) {
             if (storedUsername == targetUsername && storedPassword == targetPassword) {
