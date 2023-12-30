@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataAccess.h" />
+    <ClInclude Include="layout.h" />
     <ClInclude Include="login.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="textures.h" />

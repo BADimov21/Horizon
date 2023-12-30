@@ -1,4 +1,5 @@
 #include "login.h"
+#include "layout.h"
 #include "textures.h"
 #include "dataAccess.h"
 
@@ -137,6 +138,8 @@ void login() {
 
 	Textures* texture = new Textures();
 
+	Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+
 	for (size_t i = 0; i < star->maxStars; i++) {
 		star->position.x = (float)GetRandomValue(0, screenWidth);
 		star->position.y = (float)GetRandomValue(0, screenHeight);
@@ -166,17 +169,17 @@ void login() {
 			DrawTextureEx(texture->getStarTexture(), star->stars[i].position, 0, -0.1f, WHITE);
 		}
 
-		DrawText(("Welcome back, " + username + "!").c_str(), 100, 100, 40, RAYWHITE);
-		DrawText("Your Dashboard", 100, 150, 30, RAYWHITE);
+		DrawTextEx(customFont, ("Welcome back, " + username + "!").c_str(), Vector2{ 100, 100 }, 50, 1, RAYWHITE);
+		DrawTextEx(customFont, "Your Dashboard", Vector2{ 105, 150 }, 40, 1, RAYWHITE);
 
-		DrawText("HORIZON", screenWidth / 2 - MeasureText("HORIZON", 40) / 2 - 10, screenHeight / 2 - 300, 50, BLACK);
-		DrawText("Tomorrow is not certain, do it now!", screenWidth / 2 - MeasureText("Tomorrow is not certain, do it now!", 20) / 2 - 70, screenHeight / 2 - 250, 30, DARKGRAY);
+		DrawTextEx(customFont, "HORIZON", Vector2{ (float)screenWidth / 2 - MeasureText("HORIZON", 40) / 2 - 10, screenHeight / 2 - 300 }, 50, 10, RAYWHITE);
+		DrawTextEx(customFont, "Tomorrow is not certain, do it now!", Vector2{ (float)screenWidth / 2 - MeasureText("Tomorrow is not certain, do it now!", 20) / 2 - 70, screenHeight / 2 - 250 }, 40, 1, RAYWHITE);
 
 		Vector2 mousePosition = GetMousePosition();
 		bool isMouseOverButtonWill = checkCollisionPointRec(mousePosition, willButton);
 
 		DrawRectangleRec(willButton, (isMouseOverButtonWill ? SKYBLUE : BLUE));
-		DrawText("Digital Will", (screenWidth / 2) - 100, (screenHeight / 2) - 130, 50, BLACK);
+		DrawTextEx(customFont, "Digital Will", Vector2{ (screenWidth / 2) - 75, (screenHeight / 2) - 130 }, 50, 1, BLACK);
 
 		if (isMouseOverButtonWill && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			;
@@ -185,7 +188,7 @@ void login() {
 		bool isMouseOverButtonLearn = checkCollisionPointRec(mousePosition, learnButton);
 
 		DrawRectangleRec(learnButton, (isMouseOverButtonLearn ? LIME : GREEN));
-		DrawText("Learn", (screenWidth / 2) - 50, (screenHeight / 2), 50, BLACK);
+		DrawTextEx(customFont, "Learn", Vector2{ (screenWidth / 2) - 25, (screenHeight / 2) }, 50, 1, BLACK);
 
 		if (isMouseOverButtonLearn && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			;
@@ -194,7 +197,7 @@ void login() {
 		bool isMouseOverButtonExit = checkCollisionPointRec(mousePosition, exitButton);
 
 		DrawRectangleRec(exitButton, (isMouseOverButtonExit ? PINK : RED));
-		DrawText("Exit", (screenWidth / 2) - 20, (screenHeight / 2) + 130, 50, BLACK);
+		DrawTextEx(customFont, "Exit", Vector2{ (screenWidth / 2) - 5, (screenHeight / 2) + 130 }, 50, 1, BLACK);
 
 		if (isMouseOverButtonExit && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			exit = true;
