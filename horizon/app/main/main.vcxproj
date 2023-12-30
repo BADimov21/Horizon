@@ -138,6 +138,7 @@
     <ClInclude Include="dataAccess.h" />
     <ClInclude Include="login.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="textures.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

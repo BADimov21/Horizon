@@ -1,4 +1,5 @@
 #include "login.h"
+#include "textures.h"
 #include "dataAccess.h"
 
 const void User::getPassword(std::string& password) const {
@@ -28,7 +29,7 @@ const void User::existingUser(bool& checkUser, std::string& username, std::strin
 		std::getline(std::cin, username);
 
 		if (account->doesAccountExist(username)) {
-			std::cout << "USERNAME: " << username << "\n";
+			std::cout << "Hello, " << username << "!" << "\n";
 			std::cout << "Please enter your password: ";
 			getPassword(password);
 
@@ -94,8 +95,6 @@ void login() {
     DataAccess* account = new DataAccess();
 	User* user = new User();
 	Stars* star = new Stars();
-	std::vector<Stars> stars;
-	int maxStars = 5;
 
 	std::string username;
 	std::string password;
@@ -134,28 +133,16 @@ void login() {
 
     InitWindow(screenWidth, screenHeight, "Horizon");
 
-	Image background = LoadImage("../assets/background.png");
-	ImageResize(&background, screenWidth, screenHeight);
-	Texture2D resizedBackground = LoadTextureFromImage(background);
-	UnloadImage(background);
-
-	Image starImage = LoadImage("../assets/bright_star.png");
-	Texture2D starTexture = LoadTextureFromImage(starImage);
-	UnloadImage(starImage);
-
-	Image logo = LoadImage("../assets/logo.png");
-	ImageResize(&logo, 175, 150);
-	Texture2D resizedLogo = LoadTextureFromImage(logo);
-	UnloadImage(logo);
-
     SetTargetFPS(60);
 
-	for (size_t i = 0; i < maxStars; i++) {
-		star->position.x = GetRandomValue(0, screenWidth);
-		star->position.y = GetRandomValue(0, screenHeight);
+	Textures* texture = new Textures();
+
+	for (size_t i = 0; i < star->maxStars; i++) {
+		star->position.x = (float)GetRandomValue(0, screenWidth);
+		star->position.y = (float)GetRandomValue(0, screenHeight);
 		star->color = WHITE;
-		star->speed = GetRandomValue(20, 30) * 0.1;
-		stars.push_back(*star);
+		star->speed = static_cast<float>(GetRandomValue(20, 30) * 0.1);
+		star->stars.push_back(*star);
 	}
 
 	bool exit = WindowShouldClose();
@@ -165,18 +152,18 @@ void login() {
 
         ClearBackground(RAYWHITE);
 
-		DrawTexture(resizedBackground, 0, 0, WHITE);
+		DrawTexture(texture->getResizedBackground(), 0, 0, WHITE);
 
-		for (size_t i = 0; i < stars.size(); i++) {
-			stars[i].position.y += stars[i].speed;
+		for (size_t i = 0; i < star->stars.size(); i++) {
+			star->stars[i].position.y += star->stars[i].speed;
 
-			if (stars[i].position.y > screenHeight) {
-				stars[i].position.y = 0;
-				stars[i].position.x = GetRandomValue(0, screenWidth);
-				stars[i].size.y = GetRandomValue(10, 20);
-				stars[i].size.x = GetRandomValue(10, 20);
+			if (star->stars[i].position.y > screenHeight) {
+				star->stars[i].position.y = 0;
+				star->stars[i].position.x = (float)GetRandomValue(0, screenWidth);
+				star->stars[i].size.y = (float)GetRandomValue(10, 20);
+				star->stars[i].size.x = (float)GetRandomValue(10, 20);
 			}
-			DrawTextureEx(starTexture, stars[i].position, 0, -0.1f, WHITE);
+			DrawTextureEx(texture->getStarTexture(), star->stars[i].position, 0, -0.1f, WHITE);
 		}
 
 		DrawText(("Welcome back, " + username + "!").c_str(), 100, 100, 40, RAYWHITE);
@@ -215,18 +202,15 @@ void login() {
 
 		DrawText("Created by Horizon | 2024 All rights reserved.", screenWidth / 2 - MeasureText("Created by Horizon | 2024 All rights reserved.", 20) / 2, screenHeight - 50, 20, RAYWHITE);
 
-		DrawTexture(resizedLogo, screenWidth - 190, screenHeight - 170, WHITE);
+		DrawTexture(texture->getResizedLogo(), screenWidth - 190, screenHeight - 170, WHITE);
 
         EndDrawing();
     }
 
     CloseWindow();
 
-	UnloadTexture(resizedBackground);
-	UnloadTexture(starTexture);
-	UnloadTexture(resizedLogo);
-
 	delete account;
 	delete user;
 	delete star;
+	delete texture;
 }

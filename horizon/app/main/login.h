@@ -11,10 +11,12 @@ public:
 
 class Stars {
 public:
-    Vector2 position;
-    Vector2 size;
-    Color color;
-    float speed;
+    const int maxStars = 5;
+    std::vector<Stars> stars;
+    Vector2 position = Vector2{ 0, 0 };
+    Vector2 size = Vector2{ 0, 0 };
+    Color color = WHITE;
+    float speed = 0;
 };
 
 void login();
