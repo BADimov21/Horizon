@@ -6,10 +6,7 @@
 <h3 align="center"> Where innovation meets limitless possibilities! </h3>  
     
 <hr>
-    <h4 align="center">We are team Horizon and we want to show you our application:</h4>
-<p align="center">    
-    <p align="center">Image to be added.</p>
-</p>
+    <h4 align="center">We are team Horizon and we want to show you our application.</h4>
 <hr>
     
 <p align="center">
@@ -112,5 +109,5 @@
 <hr>
 
 <h6 align="center">This README was designed by Bozhidar Dimov, the Front-End Developer of Team Horizon.</h6>
-<h4 align="center"> Created by Team Horizon | &copy 2023 All rights reserved.</h4>
+<h4 align="center"> Created by Team Horizon | &copy 2023-2024 All rights reserved.</h4>
 <h2 align="center">Thanks for checking out our repo, show us some ❤️ by giving our repo a ⭐️!</h2>
