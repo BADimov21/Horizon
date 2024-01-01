@@ -35,7 +35,7 @@ const bool DataAccess::isPasswordCorrect(const std::string& targetUsername, cons
 }
 
 
-const void DataAccess::addAccount(const std::string& username, const std::string& password) const {
+void DataAccess::addAccount(const std::string& username, const std::string& password) const {
     std::ofstream file("../data/accounts.csv", std::ios_base::app);
     file << username << ',' << password << "\n";
 }

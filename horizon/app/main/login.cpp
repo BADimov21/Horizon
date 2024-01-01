@@ -3,7 +3,7 @@
 #include "textures.h"
 #include "dataAccess.h"
 
-const void User::getPassword(std::string& password) const {
+void User::getPassword(std::string& password) const {
 	password.clear();
 	char ch;
 	while ((ch = _getch()) != '\r') {
@@ -21,7 +21,7 @@ const void User::getPassword(std::string& password) const {
 	std::cout << '\n';
 }
 
-const void User::existingUser(bool& checkUser, std::string& username, std::string& password) const {
+void User::existingUser(bool& checkUser, std::string& username, std::string& password) const {
 	DataAccess* account = new DataAccess();
 	std::getline(std::cin, username);
 
@@ -53,7 +53,7 @@ const void User::existingUser(bool& checkUser, std::string& username, std::strin
 }
 
 
-const void User::newUser(std::string& username, std::string& password) const {
+void User::newUser(std::string& username, std::string& password) const {
 	DataAccess* account = new DataAccess();
 	bool check = false;
 
@@ -80,7 +80,7 @@ const void User::newUser(std::string& username, std::string& password) const {
 	delete account;
 }
 
-static bool checkCollisionPointRec(Vector2 point, Rectangle rec) {
+static bool checkCollisionPointRec(const Vector2 point, const Rectangle rec) {
 	return (point.x >= rec.x && point.x <= (rec.x + rec.width) &&
 		point.y >= rec.y && point.y <= (rec.y + rec.height));
 }
@@ -89,16 +89,16 @@ void login() {
     const int screenWidth = 1920;
 	const int screenHeight = 975;
 
-	Rectangle willButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 150, 270, 100 };
-	Rectangle learnButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 20, 270, 100 };
-	Rectangle exitButton = { (screenWidth / 2) - 110, (screenHeight / 2) + 110, 270, 100 };
-
-    DataAccess* account = new DataAccess();
+	DataAccess* account = new DataAccess();
 	User* user = new User();
 	Stars* star = new Stars();
 
 	std::string username;
 	std::string password;
+
+	const Rectangle willButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 150, 270, 100 };
+	const Rectangle learnButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 20, 270, 100 };
+	const Rectangle exitButton = { (screenWidth / 2) - 110, (screenHeight / 2) + 110, 270, 100 };
 
 	bool checkUser = false;
 	bool validChoice = false;
@@ -143,7 +143,7 @@ void login() {
 
 	SetWindowIcon(image->getLogo());
 
-	Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 
 	for (size_t i = 0; i < star->maxStars; i++) {
 		star->position.x = (float)GetRandomValue(0, screenWidth);

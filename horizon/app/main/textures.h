@@ -34,7 +34,7 @@ private:
     Texture2D resizedLogo = { 0 };
     Texture2D customCursor = { 0 };
 
-    const void loadAllTextures() {
+    void loadAllTextures() {
         Image background = LoadImage("../assets/background.png");
         ImageResize(&background, GetScreenWidth(), GetScreenHeight());
         resizedBackground = LoadTextureFromImage(background);
@@ -55,7 +55,7 @@ private:
         UnloadImage(customCursorImage);
     }
 
-    const void unloadAllTextures() const {
+    void unloadAllTextures() const {
         UnloadTexture(resizedBackground);
         UnloadTexture(starTexture);
         UnloadTexture(resizedLogo);
@@ -80,12 +80,12 @@ public:
 private:
     Image logo = { 0 };
 
-    const void loadAllImages() {
+    void loadAllImages() {
         logo = LoadImage("../assets/logo.png");
         ImageResize(&logo, 175, 150);
     }
 
-    const void unloadAllImages() const {
+    void unloadAllImages() const {
         UnloadImage(logo);
     }
 };
