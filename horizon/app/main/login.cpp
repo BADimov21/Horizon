@@ -136,7 +136,12 @@ void login() {
 
     SetTargetFPS(60);
 
+	HideCursor();
+
 	Textures* texture = new Textures();
+	Images* image = new Images();
+
+	SetWindowIcon(image->getLogo());
 
 	Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 
@@ -187,7 +192,7 @@ void login() {
 
 		bool isMouseOverButtonLearn = checkCollisionPointRec(mousePosition, learnButton);
 
-		DrawRectangleRec(learnButton, (isMouseOverButtonLearn ? LIME : GREEN));
+		DrawRectangleRec(learnButton, (isMouseOverButtonLearn ? GREEN : LIME));
 		DrawTextEx(customFont, "Learn", Vector2{ (screenWidth / 2) - 25, (screenHeight / 2) }, 50, 1, BLACK);
 
 		if (isMouseOverButtonLearn && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
@@ -205,7 +210,9 @@ void login() {
 
 		DrawText("Created by Horizon | 2024 All rights reserved.", screenWidth / 2 - MeasureText("Created by Horizon | 2024 All rights reserved.", 20) / 2, screenHeight - 50, 20, RAYWHITE);
 
-		DrawTexture(texture->getResizedLogo(), screenWidth - 190, screenHeight - 170, WHITE);
+		DrawTexture(texture->getResizedLogo(), screenWidth - 180, screenHeight - 180, WHITE);
+
+		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
 
         EndDrawing();
     }
@@ -216,4 +223,5 @@ void login() {
 	delete user;
 	delete star;
 	delete texture;
+	delete image;
 }
