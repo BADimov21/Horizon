@@ -86,7 +86,7 @@ static bool checkCollisionPointRec(const Vector2 point, const Rectangle rec) {
 }
 
 void login() {
-    const int screenWidth = 1920;
+	const int screenWidth = 1920;
 	const int screenHeight = 975;
 
 	DataAccess* account = new DataAccess();
@@ -102,12 +102,12 @@ void login() {
 
 	bool checkUser = false;
 	bool validChoice = false;
-    char choice;
+	char choice;
 
-    std::cout << "Welcome to Horizon!" << "\n";
+	std::cout << "Welcome to Horizon!" << "\n";
 	std::cout << "Tomorrow is not certain, do it now!" << "\n";
 	std::cout << "With the service of our company - 'Horizon'!" << "\n";
-    std::cout << "Do you have an account (A) or would you like to create one (B)? (A / B)" << "\n";
+	std::cout << "Do you have an account (A) or would you like to create one (B)? (A / B)" << "\n";
 	std::cin.get(choice);
 
 	while (!validChoice) {
@@ -132,9 +132,9 @@ void login() {
 		}
 	}
 
-    InitWindow(screenWidth, screenHeight, "Horizon");
+	InitWindow(screenWidth, screenHeight, "Horizon");
 
-    SetTargetFPS(60);
+	SetTargetFPS(60);
 
 	HideCursor();
 
@@ -155,10 +155,10 @@ void login() {
 
 	bool exit = WindowShouldClose();
 
-    while (!exit) {
-        BeginDrawing();
+	while (!exit) {
+		BeginDrawing();
 
-        ClearBackground(RAYWHITE);
+		ClearBackground(RAYWHITE);
 
 		DrawTexture(texture->getResizedBackground(), 0, 0, WHITE);
 
@@ -196,7 +196,7 @@ void login() {
 		DrawTextEx(customFont, "Learn", Vector2{ (screenWidth / 2) - 25, (screenHeight / 2) }, 50, 1, BLACK);
 
 		if (isMouseOverButtonLearn && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-			;
+			learn();
 		}
 
 		bool isMouseOverButtonExit = checkCollisionPointRec(mousePosition, exitButton);
@@ -214,10 +214,10 @@ void login() {
 
 		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
 
-        EndDrawing();
-    }
+		EndDrawing();
+	}
 
-    CloseWindow();
+	CloseWindow();
 
 	delete account;
 	delete user;
