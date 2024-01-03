@@ -7,7 +7,7 @@ static void digWillDef() {
 	Stars* star = new Stars();
 
 	Vector2 mousePosition = GetMousePosition();
-	Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 	SetExitKey(KEY_ESCAPE);
 
 	for (size_t i = 0; i < star->maxStars; i++) {
@@ -63,7 +63,7 @@ static void digAssetDef() {
 	Stars* star = new Stars();
 
 	Vector2 mousePosition = GetMousePosition();
-	Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 	SetExitKey(KEY_ESCAPE);
 
 	for (size_t i = 0; i < star->maxStars; i++) {
@@ -118,7 +118,7 @@ static void blockchainDef() {
 	Stars* star = new Stars();
 
 	Vector2 mousePosition = GetMousePosition();
-	Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 	SetExitKey(KEY_ESCAPE);
 
 	for (size_t i = 0; i < star->maxStars; i++) {
@@ -173,7 +173,7 @@ static void liabilityDef() {
 	Stars* star = new Stars();
 
 	Vector2 mousePosition = GetMousePosition();
-	Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 	SetExitKey(KEY_ESCAPE);
 
 	for (size_t i = 0; i < star->maxStars; i++) {
@@ -208,7 +208,7 @@ static void liabilityDef() {
 		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (float)(GetScreenWidth() / 2) - 900, (float)(GetScreenHeight() / 2) + 400 }, 25, 1, WHITE);
 
 		DrawTextEx(customFont, "Digital Liability", Vector2{ (float)(GetScreenWidth() / 2) - 120, (float)(GetScreenHeight() / 2) - 300 }, 50, 1, WHITE);
-		DrawTextEx(customFont, "Definition: recorded, resulting from past events obligation, settlement of which  ", Vector2{ (float)(GetScreenWidth() / 2) - 580, (float)(GetScreenHeight() / 2) - 150 }, 35, 1, WHITE);
+		DrawTextEx(customFont, "Definition: Recorded, resulting from past events obligation, settlement of which  ", Vector2{ (float)(GetScreenWidth() / 2) - 580, (float)(GetScreenHeight() / 2) - 150 }, 35, 1, WHITE);
 		DrawTextEx(customFont, "involves a loss of resources with economic benefit. The repayment of the debt is enforced by ", Vector2{ (float)(GetScreenWidth() / 2) - 660, (float)(GetScreenHeight() / 2) - 100 }, 35, 1, WHITE);
 		DrawTextEx(customFont, "the entity to whom it is owed. Failure to comply may lead to legal action in the matter.", Vector2{ (float)(GetScreenWidth() / 2) - 600, (float)(GetScreenHeight() / 2) - 50 }, 35, 1, WHITE);
 
@@ -231,14 +231,13 @@ void learn() {
 	Stars* star = new Stars();
 
 	Vector2 mousePosition = GetMousePosition();
-	Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 	SetExitKey(KEY_ESCAPE);
 
 	const Rectangle digWillButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 260, 270, 100 };
 	const Rectangle digAssetButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 90, 270, 100 };
 	const Rectangle blockchainButton = { (screenWidth / 2) - 110, (screenHeight / 2) + 80, 270, 100 };
 	const Rectangle digLiabilityButton = { (screenWidth / 2) - 110, (screenHeight / 2) + 250, 270, 100 };
-
 
 	for (size_t i = 0; i < star->maxStars; i++) {
 		star->position.x = (float)GetRandomValue(0, screenWidth);
