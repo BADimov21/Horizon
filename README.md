@@ -1,5 +1,7 @@
 <p align="center">
      <img align="center" src="https://cdn.discordapp.com/attachments/1184487440862433320/1191434569354854400/c934e711-5052-4b11-9c7c-9de9d48d5d9a-removebg-preview_auto_x2-removebg-preview.png?ex=65a56ce9&is=6592f7e9&hm=0c765e79f80b10bda3a1ca696bd5d2502bf02b0d4151e8b877c1abe6d69a9f03&" alt="Horizon Logo" width="350", height="350">
+     <img align="center" src="https://cdn.discordapp.com/attachments/819832109031096321/1192549475806355556/x.png?ex=65a97b3f&is=6597063f&hm=e1ef8ae91d687e7b1d9e23d02a14c3466a803f074fa6eceaaba7b1ca504cca27&" alt="Collaboration Image" width="150", height="150">
+     <img align="center" src="https://cdn.discordapp.com/attachments/1184487440862433320/1192545257515139252/project_logo.png?ex=65a97751&is=65970251&hm=3dd740656659980419e7e18ac2e46926a9b85f9285ff95acf0e68553fe941700&" alt="Project Logo" width="370", height="370">
 </p>
     
 <h1 align="center"> Horizon </h1>
