@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dataAccess.cpp" />
+    <ClCompile Include="digitalWill.cpp" />
     <ClCompile Include="learn.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="main.cpp" />

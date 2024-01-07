@@ -147,8 +147,8 @@ static bool checkTextClick(const char* text, Font font, int fontSize, float posX
 }
 
 void login() {
-	const int screenWidth = 1920;
-	const int screenHeight = 975;
+	const int screenWidth = 1120;
+	const int screenHeight = 675;
 
 	DataAccess* account = new DataAccess();
 	User* user = new User();
@@ -252,7 +252,7 @@ void login() {
 		DrawTextEx(customFont, "Digital Will", Vector2{ (screenWidth / 2) - 75, (screenHeight / 2) - 130 }, 50, 1, BLACK);
 
 		if (isMouseOverButtonWill && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-			;
+			digitalWill();
 		}
 
 		bool isMouseOverButtonLearn = checkCollisionPointRec(mousePosition, learnButton);

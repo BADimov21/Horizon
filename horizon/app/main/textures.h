@@ -16,6 +16,14 @@ public:
         return resizedBackground;
     }
 
+    const Texture2D& getResizedReviewWillBackground() const {
+        return resizedReviewWillBackground;
+    }
+
+    const Texture2D& getResizedNewWillBackground() const {
+        return resizedNewWillBackground;
+    }
+
     const Texture2D& getStarTexture() const {
         return starTexture;
     }
@@ -30,6 +38,8 @@ public:
 
 private:
     Texture2D resizedBackground = { 0 };
+    Texture2D resizedReviewWillBackground = { 0 };
+    Texture2D resizedNewWillBackground = { 0 };
     Texture2D starTexture = { 0 };
     Texture2D resizedLogo = { 0 };
     Texture2D customCursor = { 0 };
@@ -39,6 +49,16 @@ private:
         ImageResize(&background, GetScreenWidth(), GetScreenHeight());
         resizedBackground = LoadTextureFromImage(background);
         UnloadImage(background);
+
+        Image reviewWillBackground = LoadImage("../assets/review_Will_background.png");
+        ImageResize(&reviewWillBackground, GetScreenWidth(), GetScreenHeight());
+        resizedReviewWillBackground = LoadTextureFromImage(reviewWillBackground);
+        UnloadImage(reviewWillBackground);
+
+        Image newWillBackground = LoadImage("../assets/new_Will_background.png");
+        ImageResize(&newWillBackground, GetScreenWidth(), GetScreenHeight());
+        resizedNewWillBackground = LoadTextureFromImage(newWillBackground);
+        UnloadImage(newWillBackground);
 
         Image star = LoadImage("../assets/bright_star.png");
         starTexture = LoadTextureFromImage(star);
@@ -57,6 +77,8 @@ private:
 
     void unloadAllTextures() const {
         UnloadTexture(resizedBackground);
+        UnloadTexture(resizedReviewWillBackground);
+        UnloadTexture(resizedNewWillBackground);
         UnloadTexture(starTexture);
         UnloadTexture(resizedLogo);
         UnloadTexture(customCursor);

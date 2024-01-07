@@ -1,2 +1,6 @@
-﻿  login.cpp
-  main.vcxproj -> C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\x64\Debug\main.exe
+﻿  digitalWill.cpp
+C:\Users\User\Desktop\Horizon\horizon\app\main\digitalWill.cpp(119,53): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\User\Desktop\Horizon\horizon\app\main\digitalWill.cpp(119,53): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\User\Desktop\Horizon\horizon\app\main\digitalWill.cpp(119,78): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\Users\User\Desktop\Horizon\horizon\app\main\digitalWill.cpp(119,78): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  main.vcxproj -> C:\Users\User\Desktop\Horizon\horizon\app\x64\Debug\main.exe
