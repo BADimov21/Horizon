@@ -186,7 +186,7 @@ void digitalWill() {
 
 		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (screenWidth / 2) - 900, (screenHeight / 2) + 400 }, 25, 1, WHITE);
 		DrawTextEx(customFont, "HORIZON", Vector2{ (float)screenWidth / 2 - MeasureText("HORIZON", 40) / 2 - 10, screenHeight / 2 - 400 }, 50, 10, RAYWHITE);
-		DrawTextEx(customFont, "Take charge: Create a new Will or revisit and refine", Vector2{ (float)screenWidth / 2 - MeasureText("Take charge: Create a new Will or revisit and refine!", 20) / 2 - 120, screenHeight / 2 - 350 }, 40, 1, RAYWHITE);
+		DrawTextEx(customFont, "Take charge: Create a new will or revisit and refine", Vector2{ (float)screenWidth / 2 - MeasureText("Take charge: Create a new will or revisit and refine!", 20) / 2 - 120, screenHeight / 2 - 350 }, 40, 1, RAYWHITE);
 		DrawTextEx(customFont, "an existing one—securing your legacy with care, right here!", Vector2{ (float)screenWidth / 2 - MeasureText("an existing one—securing your legacy with care, right here!", 20) / 2 - 120, screenHeight / 2 - 320 }, 40, 1, RAYWHITE);
 
 		bool isMouseOverButtonNewWill = CheckCollisionPointRec(mousePosition, digWillButton);

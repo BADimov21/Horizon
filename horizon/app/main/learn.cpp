@@ -2,24 +2,18 @@
 #include "layout.h"
 #include "textures.h"
 
-//pass
-//name
-//ID
-//address
-//username
-//will
-void exampleWill()
-{
+//password, names, ID, address, username, will
+
+static void exampleWill() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
 
+	const Rectangle textBox = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 300, 600, 100 };
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+
 	char name[30 + 1] = "\0";
-	int letterCount = 0;
-
-	Rectangle textBox = { GetScreenWidth() / 2 - 280, GetScreenHeight() / 2 - 300, 600, 100 };
 	bool mouseOnText = false;
-
+	int letterCount = 0;
 	int framesCounter = 0;
 
 	SetTargetFPS(60);
@@ -32,69 +26,88 @@ void exampleWill()
 		star->stars.push_back(*star);
 	}
 
-	while (!WindowShouldClose())
-	{
+	while (!WindowShouldClose()) {
 		Vector2 mousePosition = GetMousePosition();
-		if (CheckCollisionPointRec(mousePosition, textBox)) mouseOnText = true;
-		else mouseOnText = false;
 
-		if (mouseOnText)
-		{
+		if (CheckCollisionPointRec(mousePosition, textBox)) {
+			mouseOnText = true;
+		}
+		else {
+			mouseOnText = false;
+		}
+
+		if (mouseOnText) {
 			SetMouseCursor(MOUSE_CURSOR_IBEAM);
 
 			int key = GetCharPressed();
 
-			while (key > 0)
-			{
-				if ((key >= 32) && (key <= 125) && (letterCount < 30))
-				{
+			while (key > 0) {
+				if ((key >= 32) && (key <= 125) && (letterCount < 30)) {
 					name[letterCount] = (char)key;
 					name[letterCount + 1] = '\0';
 					letterCount++;
 				}
-
 				key = GetCharPressed();
 			}
 
-			if (IsKeyPressed(KEY_BACKSPACE))
-			{
+			if (IsKeyPressed(KEY_BACKSPACE)) {
 				letterCount--;
-				if (letterCount < 0) letterCount = 0;
+				if (letterCount < 0) {
+					letterCount = 0;
+				}
 				name[letterCount] = '\0';
 			}
 		}
-		else SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+		else {
+			SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+		}
 
-		if (mouseOnText) framesCounter++;
-		else framesCounter = 0;
+		if (mouseOnText) {
+			framesCounter++;
+		}
+		else {
+			framesCounter = 0;
+		}
+
 		BeginDrawing();
 
 		ClearBackground(RAYWHITE);
 		DrawTexture(texture->getResizedReviewWillBackground(), 0, 0, WHITE);
-		DrawText("Name, Surname, Last name", GetScreenWidth() / 2 - 250, GetScreenHeight() / 2 - 350, 40, WHITE);
+		DrawTextEx(customFont, "Name, Surname, Last name", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 350 }, 40, 1, WHITE);
 		DrawRectangleRec(textBox, LIGHTGRAY);
-		if (mouseOnText) DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
-		else DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
 
-		DrawText(name, (int)textBox.x + 5, (int)textBox.y + 8, 40, MAROON);
+		if (mouseOnText) {
+			DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
+		}
+		else {
+			DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
+		}
 
-		if (mouseOnText)
-		{
-			if (letterCount < 9)
-			{
-				if (((framesCounter / 20) % 2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
+		DrawTextEx(customFont, name, Vector2{ (float)textBox.x + 5, (float)textBox.y + 8 }, 40, 1, MAROON);
+
+		if (mouseOnText) {
+			if (letterCount < 9) {
+				if (((framesCounter / 20) % 2) == 0) {
+					DrawTextEx(customFont, "_", Vector2{ (float)textBox.x + 8 + MeasureText(name, 40), (float)textBox.y + 12 }, 40, 1, MAROON);
+				}
 			}
 		}
+
 		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
+
 		EndDrawing();
 	}
+
+	delete texture;
+	delete star;
 }
+
 static void digWillDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
 
-	const Rectangle makeAnExampleWill = { (GetScreenWidth() / 2) + 300, (GetScreenHeight() / 2) + 250, 270, 100 };
 	Vector2 mousePosition = GetMousePosition();
+	const Rectangle makeAnExampleWill = { ((float)GetScreenWidth() / 2) + 300, ((float)GetScreenHeight() / 2) + 250, 270, 100 };
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 	SetExitKey(KEY_ESCAPE);
 
@@ -142,6 +155,7 @@ static void digWillDef() {
 		if (isMouseOverButton && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			exampleWill();
 		}
+
 		DrawTexture(texture->getResizedLogo(), GetScreenWidth() - 180, GetScreenHeight() - 180, WHITE);
 
 		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
