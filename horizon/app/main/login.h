@@ -11,6 +11,5 @@ public:
 };
 
 void login();
-
 void learn();
 void digitalWill();

@@ -50,12 +50,12 @@ private:
         resizedBackground = LoadTextureFromImage(background);
         UnloadImage(background);
 
-        Image reviewWillBackground = LoadImage("../assets/review_Will_background.png");
+        Image reviewWillBackground = LoadImage("../assets/review_will.png");
         ImageResize(&reviewWillBackground, GetScreenWidth(), GetScreenHeight());
         resizedReviewWillBackground = LoadTextureFromImage(reviewWillBackground);
         UnloadImage(reviewWillBackground);
 
-        Image newWillBackground = LoadImage("../assets/new_Will_background.png");
+        Image newWillBackground = LoadImage("../assets/new_will.png");
         ImageResize(&newWillBackground, GetScreenWidth(), GetScreenHeight());
         resizedNewWillBackground = LoadTextureFromImage(newWillBackground);
         UnloadImage(newWillBackground);

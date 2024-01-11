@@ -224,8 +224,8 @@ static void liabilityDef() {
 }
 
 void learn() {
-	const int screenWidth = 1120;
-	const int screenHeight = 675;
+	const int screenWidth = 1920;
+	const int screenHeight = 975;
 
 	Textures* texture = new Textures();
 	Stars* star = new Stars();

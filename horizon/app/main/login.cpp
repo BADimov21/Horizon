@@ -147,8 +147,8 @@ static bool checkTextClick(const char* text, Font font, int fontSize, float posX
 }
 
 void login() {
-	const int screenWidth = 1120;
-	const int screenHeight = 675;
+	const int screenWidth = 1920;
+	const int screenHeight = 975;
 
 	DataAccess* account = new DataAccess();
 	User* user = new User();
