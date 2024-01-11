@@ -2,10 +2,98 @@
 #include "layout.h"
 #include "textures.h"
 
+//pass
+//name
+//ID
+//address
+//username
+//will
+void exampleWill()
+{
+	Textures* texture = new Textures();
+	Stars* star = new Stars();
+
+	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+	char name[30 + 1] = "\0";
+	int letterCount = 0;
+
+	Rectangle textBox = { GetScreenWidth() / 2 - 280, GetScreenHeight() / 2 - 300, 600, 100 };
+	bool mouseOnText = false;
+
+	int framesCounter = 0;
+
+	SetTargetFPS(60);
+
+	for (size_t i = 0; i < star->maxStars; i++) {
+		star->position.x = (float)GetRandomValue(0, GetScreenWidth());
+		star->position.y = (float)GetRandomValue(0, GetScreenHeight());
+		star->color = WHITE;
+		star->speed = static_cast<float>(GetRandomValue(20, 30) * 0.1);
+		star->stars.push_back(*star);
+	}
+
+	while (!WindowShouldClose())
+	{
+		Vector2 mousePosition = GetMousePosition();
+		if (CheckCollisionPointRec(mousePosition, textBox)) mouseOnText = true;
+		else mouseOnText = false;
+
+		if (mouseOnText)
+		{
+			SetMouseCursor(MOUSE_CURSOR_IBEAM);
+
+			int key = GetCharPressed();
+
+			while (key > 0)
+			{
+				if ((key >= 32) && (key <= 125) && (letterCount < 30))
+				{
+					name[letterCount] = (char)key;
+					name[letterCount + 1] = '\0';
+					letterCount++;
+				}
+
+				key = GetCharPressed();
+			}
+
+			if (IsKeyPressed(KEY_BACKSPACE))
+			{
+				letterCount--;
+				if (letterCount < 0) letterCount = 0;
+				name[letterCount] = '\0';
+			}
+		}
+		else SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+
+		if (mouseOnText) framesCounter++;
+		else framesCounter = 0;
+		BeginDrawing();
+
+		ClearBackground(RAYWHITE);
+		DrawTexture(texture->getResizedReviewWillBackground(), 0, 0, WHITE);
+		DrawText("Name, Surname, Last name", GetScreenWidth() / 2 - 250, GetScreenHeight() / 2 - 350, 40, WHITE);
+		DrawRectangleRec(textBox, LIGHTGRAY);
+		if (mouseOnText) DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
+		else DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
+
+		DrawText(name, (int)textBox.x + 5, (int)textBox.y + 8, 40, MAROON);
+
+		if (mouseOnText)
+		{
+			if (letterCount < 9)
+			{
+				if (((framesCounter / 20) % 2) == 0) DrawText("_", (int)textBox.x + 8 + MeasureText(name, 40), (int)textBox.y + 12, 40, MAROON);
+			}
+		}
+		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
+		EndDrawing();
+	}
+}
 static void digWillDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
 
+	const Rectangle makeAnExampleWill = { (GetScreenWidth() / 2) + 300, (GetScreenHeight() / 2) + 250, 270, 100 };
 	Vector2 mousePosition = GetMousePosition();
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 	SetExitKey(KEY_ESCAPE);
@@ -47,6 +135,13 @@ static void digWillDef() {
 		DrawTextEx(customFont, "digital will, information such as: user names, passwords, emails, keys to cyber wallets, etc., is ", Vector2{ (float)(GetScreenWidth() / 2) - 670, (float)(GetScreenHeight() / 2) - 50 }, 35, 1, WHITE);
 		DrawTextEx(customFont, "described. This information is used by the executor(s) to access the bequeathed digital assets. ", Vector2{ (float)(GetScreenWidth() / 2) - 670, (float)(GetScreenHeight() / 2) }, 35, 1, WHITE);
 
+
+		bool isMouseOverButton = CheckCollisionPointRec(mousePosition, makeAnExampleWill);
+		DrawRectangleRec(makeAnExampleWill, (isMouseOverButton ? GOLD : ORANGE));
+		DrawTextEx(customFont, "Example Will", Vector2{ ((float)GetScreenWidth() / 2) + 315, ((float)GetScreenHeight() / 2) + 270 }, 50, 1, BLACK);
+		if (isMouseOverButton && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+			exampleWill();
+		}
 		DrawTexture(texture->getResizedLogo(), GetScreenWidth() - 180, GetScreenHeight() - 180, WHITE);
 
 		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
@@ -254,7 +349,7 @@ void learn() {
 
 		ClearBackground(RAYWHITE);
 
-		DrawTexture(texture->getResizedBackground(), 0, 0, WHITE);                                         
+		DrawTexture(texture->getResizedBackground(), 0, 0, WHITE);
 
 		for (size_t i = 0; i < star->stars.size(); i++) {
 			star->stars[i].position.y += star->stars[i].speed;
@@ -271,7 +366,7 @@ void learn() {
 		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (screenWidth / 2) - 900, (screenHeight / 2) + 400 }, 25, 1, WHITE);
 		DrawTextEx(customFont, "HORIZON", Vector2{ (float)screenWidth / 2 - MeasureText("HORIZON", 40) / 2 - 10, screenHeight / 2 - 400 }, 50, 10, RAYWHITE);
 		DrawTextEx(customFont, "Here are the definitions. Choose the one you would like to learn!", Vector2{ (float)screenWidth / 2 - MeasureText("Here are the definitions. Choose the one you would like to learn!", 20) / 2 - 120, screenHeight / 2 - 350 }, 40, 1, RAYWHITE);
-	   
+
 		bool isMouseOverButtonWill = CheckCollisionPointRec(mousePosition, digWillButton);
 		DrawRectangleRec(digWillButton, (isMouseOverButtonWill ? SKYBLUE : BLUE));
 		DrawTextEx(customFont, "Digital Will", Vector2{ (screenWidth / 2) - 75, (screenHeight / 2) - 235 }, 50, 1, BLACK);
@@ -287,7 +382,7 @@ void learn() {
 		if (isMouseOverAsset && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			digAssetDef();
 		}
-		
+
 		bool isMouseOverBlockchain = CheckCollisionPointRec(mousePosition, blockchainButton);
 		DrawRectangleRec(blockchainButton, (isMouseOverBlockchain ? PINK : RED));
 		DrawTextEx(customFont, "Blockchain", Vector2{ (screenWidth / 2) - 80, (screenHeight / 2) + 100 }, 50, 1, BLACK);
