@@ -1,3 +1,2 @@
 ﻿  learn.cpp
-raylib.lib(rcore.c.obj) : warning LNK4099: PDB '' was not found with 'raylib.lib(rcore.c.obj)' or at ''; linking object as if no debug info
   main.vcxproj -> C:\Users\HP\OneDrive\Работен плот\Horizon\horizon\app\x64\Debug\main.exe

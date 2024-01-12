@@ -3,6 +3,8 @@
 #include "textures.h"
 #include "dataAccess.h"
 
+std::vector<std::string> container;
+
 static void newWill() {
 	DataAccess* process = new DataAccess();
 	Textures* texture = new Textures();
@@ -50,6 +52,8 @@ static void newWill() {
 
 	process->addDigitalWill(password, names, id, address, username, will);
 
+	container = { password, names, id, address, username, will };
+
 	std::cout << "\n";
 	std::cout << "Your will has successfully been submitted! Thank you one more time for trusting Horizon!";
 	std::cout << "\n";
@@ -58,7 +62,7 @@ static void newWill() {
 		mousePosition = GetMousePosition();
 
 		BeginDrawing();
-
+		SetExitKey(KEY_ESCAPE);
 		ClearBackground(RAYWHITE);
 
 		DrawTexture(texture->getResizedNewWillBackground(), 0, 0, WHITE);
@@ -75,8 +79,17 @@ static void newWill() {
 			DrawTextureEx(texture->getStarTexture(), star->stars[i].position, 0, -0.1f, WHITE);
 		}
 
-		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (float)(GetScreenWidth() / 2) - 900, (float)(GetScreenHeight() / 2) + 400 }, 25, 1, WHITE);
+		DrawRectangleLines(300, 85, 1280, 820, BLACK);
+		DrawTextEx(customFont, "HORIZON", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("HORIZON", 40) / 2 - 20, (float)GetScreenHeight() / 2 - 470 }, 50, 10, BLACK);
+		DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 400 }, 40, 1, BLACK);
+		DrawTextEx(customFont, "Full name:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Full Name:", 40) / 2 - 470, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
+		DrawTextEx(customFont, names.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(names.c_str(), 40) / 2, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
+		DrawTextEx(customFont, "Personal ID:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Personal ID : ", 40) / 2 - 430, (float)GetScreenHeight() / 2 - 200 }, 30, 1, BLACK);
+		DrawTextEx(customFont, "Address:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Address:", 40) / 2 - 480, (float)GetScreenHeight() / 2 - 100 }, 30, 1, BLACK);
+		DrawTextEx(customFont, "Username:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Username:", 40) / 2 - 470, (float)GetScreenHeight() / 2 }, 30, 1, BLACK);
+		DrawTextEx(customFont, "Will: Your will is encrypted! You can take a look at it in the console of the Horizon application!", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your will is encrypted! You can take a look at it in the console of the Horizon application!", 40) / 2 + 350, (float)GetScreenHeight() / 2 + 100 }, 30, 1, BLACK);
 
+		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (float)(GetScreenWidth() / 2) - 920, (float)(GetScreenHeight() / 2) + 420 }, 25, 1, BLACK);
 
 		DrawTexture(texture->getResizedLogo(), GetScreenWidth() - 180, GetScreenHeight() - 180, WHITE);
 
@@ -126,6 +139,16 @@ static void reviewWill() {
 			}
 			DrawTextureEx(texture->getStarTexture(), star->stars[i].position, 0, -0.1f, WHITE);
 		}
+
+		DrawRectangleLines(300, 85, 1280, 820, BLACK);
+		DrawTextEx(customFont, "HORIZON", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("HORIZON", 40) / 2 - 20, (float)GetScreenHeight() / 2 - 470 }, 50, 10, BLACK);
+		DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 400 }, 40, 1, BLACK);
+		DrawTextEx(customFont, "Full name:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Full Name:", 40) / 2 - 470, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
+		DrawTextEx(customFont, container[1].c_str(), Vector2{(float)GetScreenWidth() / 2 - MeasureText(container[1].c_str(), 40) / 2, (float)GetScreenHeight() / 2 - 300}, 30, 1, BLACK);
+		DrawTextEx(customFont, "Personal ID:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Personal ID : ", 40) / 2 - 430, (float)GetScreenHeight() / 2 - 200 }, 30, 1, BLACK);
+		DrawTextEx(customFont, "Address:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Address:", 40) / 2 - 480, (float)GetScreenHeight() / 2 - 100 }, 30, 1, BLACK);
+		DrawTextEx(customFont, "Username:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Username:", 40) / 2 - 470, (float)GetScreenHeight() / 2 }, 30, 1, BLACK);
+		DrawTextEx(customFont, "Will: Your will is encrypted! You can take a look at it in the console of the Horizon application!", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your will is encrypted! You can take a look at it in the console of the Horizon application!", 40) / 2 + 350, (float)GetScreenHeight() / 2 + 100 }, 30, 1, BLACK);
 
 		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (float)(GetScreenWidth() / 2) - 900, (float)(GetScreenHeight() / 2) + 400 }, 25, 1, WHITE);
 
@@ -194,12 +217,13 @@ void digitalWill() {
 		DrawTextEx(customFont, "New Will", Vector2{ (screenWidth / 2) - 60, (screenHeight / 2) - 235 }, 50, 1, BLACK);
 
 		if (isMouseOverButtonNewWill && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+			MinimizeWindow();
 			newWill();
 		}
 
 		bool isMouseOverReviewWill = CheckCollisionPointRec(mousePosition, digReviewWillButton);
 		DrawRectangleRec(digReviewWillButton, (isMouseOverReviewWill ? GOLD : ORANGE));
-		DrawTextEx(customFont, "Review Will", Vector2{ (screenWidth / 2) - 85, (screenHeight / 2) - 75}, 50, 1, BLACK);
+		DrawTextEx(customFont, "Review Will", Vector2{ (screenWidth / 2) - 85, (screenHeight / 2) - 75 }, 50, 1, BLACK);
 		if (isMouseOverReviewWill && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			reviewWill();
 		}

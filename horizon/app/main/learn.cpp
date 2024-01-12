@@ -2,13 +2,14 @@
 #include "layout.h"
 #include "textures.h"
 
-//password, names, ID, address, username, will
-
 static void exampleWill() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
 
-	const Rectangle textBox = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 300, 600, 100 };
+	const Rectangle textBoxPass = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 300, 600, 50 };
+	const Rectangle textBoxName = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 200, 600, 50 };
+	const Rectangle textBoxID = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 100, 600, 50};
+	const Rectangle textBoxAddress = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2, 600, 50 };
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 
 	char name[30 + 1] = "\0";
@@ -29,7 +30,7 @@ static void exampleWill() {
 	while (!WindowShouldClose()) {
 		Vector2 mousePosition = GetMousePosition();
 
-		if (CheckCollisionPointRec(mousePosition, textBox)) {
+		if (CheckCollisionPointRec(mousePosition, textBoxPass)) {
 			mouseOnText = true;
 		}
 		else {
@@ -73,24 +74,38 @@ static void exampleWill() {
 
 		ClearBackground(RAYWHITE);
 		DrawTexture(texture->getResizedReviewWillBackground(), 0, 0, WHITE);
-		DrawTextEx(customFont, "Name, Surname, Last name", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 350 }, 40, 1, WHITE);
-		DrawRectangleRec(textBox, LIGHTGRAY);
+		DrawTextEx(customFont, "Password", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 350 }, 40, 1, WHITE);
+		DrawTextEx(customFont, "Name, Surname, Last name", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 250 }, 40, 1, WHITE);
+		DrawTextEx(customFont, "ID", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 150 }, 40, 1, WHITE);
+		DrawTextEx(customFont, "Username", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 50 }, 40, 1, WHITE);
+
+		DrawRectangleRec(textBoxPass, LIGHTGRAY);
+		DrawRectangleRec(textBoxName, LIGHTGRAY);
+		DrawRectangleRec(textBoxID, LIGHTGRAY);
+		DrawRectangleRec(textBoxAddress, LIGHTGRAY);
 
 		if (mouseOnText) {
-			DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
+			DrawRectangleLines((int)textBoxPass.x, (int)textBoxPass.y, (int)textBoxPass.width, (int)textBoxPass.height, RED);
 		}
 		else {
-			DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
+			DrawRectangleLines((int)textBoxPass.x, (int)textBoxPass.y, (int)textBoxPass.width, (int)textBoxPass.height, DARKGRAY);
 		}
 
-		DrawTextEx(customFont, name, Vector2{ (float)textBox.x + 5, (float)textBox.y + 8 }, 40, 1, MAROON);
+		DrawTextEx(customFont, name, Vector2{ (float)textBoxPass.x + 5, (float)textBoxPass.y + 8 }, 40, 1, MAROON);
 
 		if (mouseOnText) {
 			if (letterCount < 9) {
 				if (((framesCounter / 20) % 2) == 0) {
-					DrawTextEx(customFont, "_", Vector2{ (float)textBox.x + 8 + MeasureText(name, 40), (float)textBox.y + 12 }, 40, 1, MAROON);
+					DrawTextEx(customFont, "_", Vector2{ (float)textBoxPass.x + 8 + MeasureText(name, 40), (float)textBoxPass.y + 12 }, 40, 1, MAROON);
 				}
 			}
+		}if (mouseOnText) {
+			if (letterCount < 9) {
+				if (((framesCounter / 20) % 2) == 0) {
+					DrawTextEx(customFont, "_", Vector2{ (float)textBoxID.x + 8 + MeasureText(name, 40), (float)textBoxID.y + 12 }, 40, 1, MAROON);
+				}
+			}
+		
 		}
 
 		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
