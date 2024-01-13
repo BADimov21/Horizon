@@ -4,15 +4,14 @@
 #include "validate.h"
 #include "dataAccess.h"
 
-std::vector<std::string> container;
-
 static void newWill() {
 	DataAccess* process = new DataAccess();
 	Validate* validator = new Validate();
+	User* user = new User();
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
 
-	std::string password, names, id, address, username, will;
+	std::string willPassword, accountPassword, names, id, address, username, will;
 
 	Vector2 mousePosition = GetMousePosition();
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
@@ -34,10 +33,10 @@ static void newWill() {
 	std::cout << "You must keep your digital will secure!" << "\n";
 	std::cout << "You have to think of a password to which only you have access." << "\n";
 	std::cout << "Enter your desired password: ";
-	std::getline(std::cin, password);
-	while (!validator->validatePassword(password)) {
+	std::getline(std::cin, willPassword);
+	while (!validator->validatePassword(willPassword)) {
 		std::cout << "Enter your desired password: ";
-		std::getline(std::cin, password);
+		std::getline(std::cin, willPassword);
 	}
 	std::cout << "\n";
 	std::cout << "Enter your first name, surname and last name: ";
@@ -67,19 +66,27 @@ static void newWill() {
 		std::cout << "This account doesn't exist. Please enter your username correctly: ";
 		std::getline(std::cin, username);
 	}
-	std::cout << "\n";
-	std::cout << "You have entered all of your personal data. Thank you for your cooperation and trusting Horizon! Now you must write your will.";
-	std::cout << "\n";
-	std::getline(std::cin, will);
-	std::cout << "\n";
-
-	process->addDigitalWill(password, names, id, address, username, will);
-
-	container = { password, names, id, address, username, will };
-
-	std::cout << "\n";
-	std::cout << "Your will has successfully been submitted! Thank you one more time for trusting Horizon!";
-	std::cout << "\n";
+	std::cout << "Enter the password of your account: ";
+	user->getPassword(accountPassword);
+	while (!validator->isPasswordCorrect(username, accountPassword)) {
+		std::cout << "Incorrect password. Please try again: ";
+		user->getPassword(accountPassword);
+	}
+	if (validator->doesWillExist(username, accountPassword)) {
+		std::cout << "\n";
+		std::cout << "This account has already submitted their will in Horizon's database." << "\n";
+	}
+	else {
+		std::cout << "\n";
+		std::cout << "You have entered all of your personal data. Thank you for your cooperation and trusting Horizon! Now you must write your will.";
+		std::cout << "\n";
+		std::getline(std::cin, will);
+		std::cout << "\n";
+		std::cout << "Your will has successfully been submitted! Thank you one more time for trusting Horizon!";
+		std::cout << "\n";
+		process->addUserWill(username, accountPassword);
+		process->addDigitalWill(username, willPassword, names, id, address, will);
+	}
 
 	while (!WindowShouldClose()) {
 		mousePosition = GetMousePosition();
@@ -123,16 +130,29 @@ static void newWill() {
 
 	delete process;
 	delete validator;
+	delete user;
 	delete texture;
 	delete star;
 }
 
 static void reviewWill() {
+	Validate* validator = new Validate();
+	UserData* data = new UserData();
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
+	UserData user;
 
 	Vector2 mousePosition = GetMousePosition();
+	const Rectangle textBox = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 300, 600, 50 };
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+
+	char password[30] = "\0";
+	int letterCount = 0;
+	int framesCounter = 0;
+	bool mouseOnText = false;
+	bool displayInfo = false;
+	bool passwordBox = true;
+
 	SetExitKey(KEY_ESCAPE);
 
 	for (size_t i = 0; i < star->maxStars; i++) {
@@ -145,6 +165,45 @@ static void reviewWill() {
 
 	while (!WindowShouldClose()) {
 		mousePosition = GetMousePosition();
+
+		if (CheckCollisionPointRec(mousePosition, textBox)) {
+			mouseOnText = true;
+		}
+		else {
+			mouseOnText = false;
+		}
+
+		if (mouseOnText) {
+			SetMouseCursor(MOUSE_CURSOR_IBEAM);
+
+			int key = GetCharPressed();
+
+			while (key > 0) {
+				if ((key >= 32) && (key <= 125) && (letterCount < 30)) {
+					password[letterCount] = (char)key;
+					password[letterCount + 1] = '\0';
+					letterCount++;
+				}
+				key = GetCharPressed();
+			}
+
+			if (IsKeyPressed(KEY_BACKSPACE)) {
+				letterCount--;
+				if (letterCount < 0) {
+					letterCount = 0;
+				}
+				password[letterCount] = '\0';
+			}
+		}
+		else {
+			SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+		}
+		if (mouseOnText) {
+			framesCounter++;
+		}
+		else {
+			framesCounter = 0;
+		}
 
 		BeginDrawing();
 
@@ -163,16 +222,35 @@ static void reviewWill() {
 			}
 			DrawTextureEx(texture->getStarTexture(), star->stars[i].position, 0, -0.1f, WHITE);
 		}
+		if (passwordBox) {
+			DrawRectangleRec(textBox, RAYWHITE);
 
-		DrawRectangleLines(300, 85, 1280, 820, BLACK);
-		DrawTextEx(customFont, "HORIZON", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("HORIZON", 40) / 2 - 20, (float)GetScreenHeight() / 2 - 470 }, 50, 10, BLACK);
-		DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 400 }, 40, 1, BLACK);
-		DrawTextEx(customFont, "Full name:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Full Name:", 40) / 2 - 470, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
-		DrawTextEx(customFont, container[1].c_str(), Vector2{(float)GetScreenWidth() / 2 - MeasureText(container[1].c_str(), 40) / 2, (float)GetScreenHeight() / 2 - 300}, 30, 1, BLACK);
-		DrawTextEx(customFont, "Personal ID:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Personal ID : ", 40) / 2 - 430, (float)GetScreenHeight() / 2 - 200 }, 30, 1, BLACK);
-		DrawTextEx(customFont, "Address:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Address:", 40) / 2 - 480, (float)GetScreenHeight() / 2 - 100 }, 30, 1, BLACK);
-		DrawTextEx(customFont, "Username:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Username:", 40) / 2 - 470, (float)GetScreenHeight() / 2 }, 30, 1, BLACK);
-		DrawTextEx(customFont, "Will: Your will is encrypted! You can take a look at it in the console of the Horizon application!", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your will is encrypted! You can take a look at it in the console of the Horizon application!", 40) / 2 + 350, (float)GetScreenHeight() / 2 + 100 }, 30, 1, BLACK);
+			if (mouseOnText) {
+				DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, RED);
+			}
+			else {
+				DrawRectangleLines((int)textBox.x, (int)textBox.y, (int)textBox.width, (int)textBox.height, DARKGRAY);
+			}
+
+			DrawTextEx(customFont, password, Vector2{ (float)textBox.x + 5, (float)textBox.y + 8 }, 40, 1, MAROON);
+		}
+		if (IsKeyPressed(KEY_ENTER)) {
+			if (validator->openWill(password, user)) {
+				displayInfo = true;
+				passwordBox = false;
+			}
+		}
+		if (displayInfo) {
+			DrawRectangleLines(300, 85, 1280, 820, BLACK);
+			DrawTextEx(customFont, "HORIZON", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("HORIZON", 40) / 2 - 20, (float)GetScreenHeight() / 2 - 470 }, 50, 10, BLACK);
+			DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 400 }, 40, 1, BLACK);
+			DrawTextEx(customFont, "Full name:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Full Name:", 40) / 2 - 470, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
+			DrawTextEx(customFont, user.names.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(data->names.c_str(), 40) / 2, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
+			DrawTextEx(customFont, "Personal ID:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Personal ID : ", 40) / 2 - 430, (float)GetScreenHeight() / 2 - 200 }, 30, 1, BLACK);
+			DrawTextEx(customFont, "Address:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Address:", 40) / 2 - 480, (float)GetScreenHeight() / 2 - 100 }, 30, 1, BLACK);
+			DrawTextEx(customFont, "Username:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Username:", 40) / 2 - 470, (float)GetScreenHeight() / 2 }, 30, 1, BLACK);
+			DrawTextEx(customFont, "Will: Your will is encrypted! You can take a look at it in the console of the Horizon application!", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your will is encrypted! You can take a look at it in the console of the Horizon application!", 40) / 2 + 350, (float)GetScreenHeight() / 2 + 100 }, 30, 1, BLACK);
+		}
 
 		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (float)(GetScreenWidth() / 2) - 900, (float)(GetScreenHeight() / 2) + 400 }, 25, 1, WHITE);
 
@@ -183,6 +261,7 @@ static void reviewWill() {
 		EndDrawing();
 	}
 
+	delete validator;
 	delete texture;
 	delete star;
 }

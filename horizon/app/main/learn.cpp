@@ -1,122 +1,6 @@
 #include "login.h"
 #include "layout.h"
 #include "textures.h"
-
-static void exampleWill() {
-	Textures* texture = new Textures();
-	Stars* star = new Stars();
-
-	const Rectangle textBoxPass = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 300, 600, 50 };
-	const Rectangle textBoxName = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 200, 600, 50 };
-	const Rectangle textBoxID = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2 - 100, 600, 50};
-	const Rectangle textBoxAddress = { (float)GetScreenWidth() / 2 - 290, (float)GetScreenHeight() / 2, 600, 50 };
-	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
-
-	char name[30 + 1] = "\0";
-	bool mouseOnText = false;
-	int letterCount = 0;
-	int framesCounter = 0;
-
-	SetTargetFPS(60);
-
-	for (size_t i = 0; i < star->maxStars; i++) {
-		star->position.x = (float)GetRandomValue(0, GetScreenWidth());
-		star->position.y = (float)GetRandomValue(0, GetScreenHeight());
-		star->color = WHITE;
-		star->speed = static_cast<float>(GetRandomValue(20, 30) * 0.1);
-		star->stars.push_back(*star);
-	}
-
-	while (!WindowShouldClose()) {
-		Vector2 mousePosition = GetMousePosition();
-
-		if (CheckCollisionPointRec(mousePosition, textBoxPass)) {
-			mouseOnText = true;
-		}
-		else {
-			mouseOnText = false;
-		}
-
-		if (mouseOnText) {
-			SetMouseCursor(MOUSE_CURSOR_IBEAM);
-
-			int key = GetCharPressed();
-
-			while (key > 0) {
-				if ((key >= 32) && (key <= 125) && (letterCount < 30)) {
-					name[letterCount] = (char)key;
-					name[letterCount + 1] = '\0';
-					letterCount++;
-				}
-				key = GetCharPressed();
-			}
-
-			if (IsKeyPressed(KEY_BACKSPACE)) {
-				letterCount--;
-				if (letterCount < 0) {
-					letterCount = 0;
-				}
-				name[letterCount] = '\0';
-			}
-		}
-		else {
-			SetMouseCursor(MOUSE_CURSOR_DEFAULT);
-		}
-
-		if (mouseOnText) {
-			framesCounter++;
-		}
-		else {
-			framesCounter = 0;
-		}
-
-		BeginDrawing();
-
-		ClearBackground(RAYWHITE);
-		DrawTexture(texture->getResizedReviewWillBackground(), 0, 0, WHITE);
-		DrawTextEx(customFont, "Password", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 350 }, 40, 1, WHITE);
-		DrawTextEx(customFont, "Name, Surname, Last name", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 250 }, 40, 1, WHITE);
-		DrawTextEx(customFont, "ID", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 150 }, 40, 1, WHITE);
-		DrawTextEx(customFont, "Username", Vector2{ (float)GetScreenWidth() / 2 - 200, (float)GetScreenHeight() / 2 - 50 }, 40, 1, WHITE);
-
-		DrawRectangleRec(textBoxPass, LIGHTGRAY);
-		DrawRectangleRec(textBoxName, LIGHTGRAY);
-		DrawRectangleRec(textBoxID, LIGHTGRAY);
-		DrawRectangleRec(textBoxAddress, LIGHTGRAY);
-
-		if (mouseOnText) {
-			DrawRectangleLines((int)textBoxPass.x, (int)textBoxPass.y, (int)textBoxPass.width, (int)textBoxPass.height, RED);
-		}
-		else {
-			DrawRectangleLines((int)textBoxPass.x, (int)textBoxPass.y, (int)textBoxPass.width, (int)textBoxPass.height, DARKGRAY);
-		}
-
-		DrawTextEx(customFont, name, Vector2{ (float)textBoxPass.x + 5, (float)textBoxPass.y + 8 }, 40, 1, MAROON);
-
-		if (mouseOnText) {
-			if (letterCount < 9) {
-				if (((framesCounter / 20) % 2) == 0) {
-					DrawTextEx(customFont, "_", Vector2{ (float)textBoxPass.x + 8 + MeasureText(name, 40), (float)textBoxPass.y + 12 }, 40, 1, MAROON);
-				}
-			}
-		}if (mouseOnText) {
-			if (letterCount < 9) {
-				if (((framesCounter / 20) % 2) == 0) {
-					DrawTextEx(customFont, "_", Vector2{ (float)textBoxID.x + 8 + MeasureText(name, 40), (float)textBoxID.y + 12 }, 40, 1, MAROON);
-				}
-			}
-		
-		}
-
-		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
-
-		EndDrawing();
-	}
-
-	delete texture;
-	delete star;
-}
-
 static void digWillDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
@@ -163,13 +47,6 @@ static void digWillDef() {
 		DrawTextEx(customFont, "digital will, information such as: user names, passwords, emails, keys to cyber wallets, etc., is ", Vector2{ (float)(GetScreenWidth() / 2) - 670, (float)(GetScreenHeight() / 2) - 50 }, 35, 1, WHITE);
 		DrawTextEx(customFont, "described. This information is used by the executor(s) to access the bequeathed digital assets. ", Vector2{ (float)(GetScreenWidth() / 2) - 670, (float)(GetScreenHeight() / 2) }, 35, 1, WHITE);
 
-
-		bool isMouseOverButton = CheckCollisionPointRec(mousePosition, makeAnExampleWill);
-		DrawRectangleRec(makeAnExampleWill, (isMouseOverButton ? GOLD : ORANGE));
-		DrawTextEx(customFont, "Example Will", Vector2{ ((float)GetScreenWidth() / 2) + 315, ((float)GetScreenHeight() / 2) + 270 }, 50, 1, BLACK);
-		if (isMouseOverButton && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-			exampleWill();
-		}
 
 		DrawTexture(texture->getResizedLogo(), GetScreenWidth() - 180, GetScreenHeight() - 180, WHITE);
 

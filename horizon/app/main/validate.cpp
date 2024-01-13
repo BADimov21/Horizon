@@ -1,5 +1,29 @@
 #include "validate.h"
 
+const bool Validate::doesWillExist(const std::string& username, const std::string& password) const {
+    std::ifstream file("../data/accounts.csv");
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::string storedUsername, storedPassword, will;
+
+        if (std::getline(iss, storedUsername, ',') &&
+            std::getline(iss, storedPassword, ',') &&
+            std::getline(iss, will, ',')) {
+            if (username == storedUsername && password == storedPassword) {
+                if (will == "1") {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 const bool Validate::validateUsername(const std::string& username) const {
     if (username.length() == 1) {
         std::cout << "Username cannot be a single character." << "\n";
@@ -177,3 +201,33 @@ const bool Validate::validateAddress(const std::string& address) const {
 	return true;
 }
 
+const bool Validate::openWill(const std::string& password, UserData& userData) const {
+    std::ifstream file("../data/digitalWills.csv");
+    std::string line;
+    bool passwordMatch = false;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::vector<std::string> columns;
+
+        while (std::getline(iss, line, ',')) {
+            columns.push_back(line);
+        }
+
+        if (columns.size() >= 2 && columns[1] == password) {
+            passwordMatch = true;
+
+            if (columns.size() >= 6) {
+                userData.username = columns[0];
+                userData.names = columns[2];
+                userData.id = columns[3];
+                userData.address = columns[4];
+                userData.will = columns[5];
+            }
+            break;
+        }
+    }
+
+    file.close();
+    return passwordMatch;
+}
