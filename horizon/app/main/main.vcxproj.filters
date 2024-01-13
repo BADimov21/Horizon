@@ -30,6 +30,9 @@
     <ClCompile Include="digitalWill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="validate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataAccess.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="layout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="validate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

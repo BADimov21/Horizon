@@ -1,6 +1,7 @@
 #include "login.h"
 #include "layout.h"
 #include "textures.h"
+#include "validate.h"
 #include "dataAccess.h"
 
 void User::getPassword(std::string& password) const {
@@ -22,19 +23,19 @@ void User::getPassword(std::string& password) const {
 }
 
 void User::existingUser(bool& checkUser, std::string& username, std::string& password) const {
-	DataAccess* account = new DataAccess();
+	Validate* validator = new Validate();
 	std::getline(std::cin, username);
 
 	while (!checkUser) {
 		std::cout << "Please enter your username: ";
 		std::getline(std::cin, username);
 
-		if (account->doesAccountExist(username)) {
+		if (validator->doesAccountExist(username)) {
 			std::cout << "Hello, " << username << "!" << "\n";
 			std::cout << "Please enter your password: ";
 			getPassword(password);
 
-			if (account->isPasswordCorrect(username, password)) {
+			if (validator->isPasswordCorrect(username, password)) {
 				std::cout << "Welcome back, " << username << "!" << "\n";
 				std::cout << "\n";
 				checkUser = true;
@@ -49,12 +50,13 @@ void User::existingUser(bool& checkUser, std::string& username, std::string& pas
 			std::cout << "\n";
 		}
 	}
-	delete account;
+	delete validator;
 }
 
 
 void User::newUser(std::string& username, std::string& password) const {
 	DataAccess* account = new DataAccess();
+	Validate* validator = new Validate();
 	bool check = false;
 
 	std::cout << "Thank you for choosing 'Horizon'! Let's start with your registration! " << "\n";
@@ -62,15 +64,19 @@ void User::newUser(std::string& username, std::string& password) const {
 	while (!check) {
 		std::cout << "Enter your desired username: ";
 		std::cin >> username;
-
-		if (account->doesAccountExist(username)) {
+		if (!validator->validateUsername(username)) {
+			std::cout << "Error! Try again." << "\n";
+		}
+		else if (validator->doesAccountExist(username)) {
 			std::cout << "Account already exists. Please try again with a different username!" << "\n";
 		}
 		else {
 			std::cout << "\n";
 			std::cout << "Enter your desired password: ";
 			getPassword(password);
-
+			while (!validator->validatePassword(password)) {
+				getPassword(password);
+			}
 			account->addAccount(username, password);
 			std::cout << "Thank you, " << username << "! Make sure to keep your credentials safe!" << "\n";
 			std::cout << "\n";
@@ -78,6 +84,7 @@ void User::newUser(std::string& username, std::string& password) const {
 		}
 	}
 	delete account;
+	delete validator;
 }
 
 void User::issues() {

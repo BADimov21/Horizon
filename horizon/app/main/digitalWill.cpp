@@ -1,12 +1,14 @@
 #include "login.h"
 #include "layout.h"
 #include "textures.h"
+#include "validate.h"
 #include "dataAccess.h"
 
 std::vector<std::string> container;
 
 static void newWill() {
 	DataAccess* process = new DataAccess();
+	Validate* validator = new Validate();
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
 
@@ -33,22 +35,43 @@ static void newWill() {
 	std::cout << "You have to think of a password to which only you have access." << "\n";
 	std::cout << "Enter your desired password: ";
 	std::getline(std::cin, password);
+	while (!validator->validatePassword(password)) {
+		std::cout << "Enter your desired password: ";
+		std::getline(std::cin, password);
+	}
 	std::cout << "\n";
 	std::cout << "Enter your first name, surname and last name: ";
 	std::getline(std::cin, names);
 	std::cout << "\n";
+	while (!validator->validateName(names)) {
+		std::cout << "Enter your your first name, surname and last name: ";
+		std::getline(std::cin, names);
+	}
 	std::cout << "Enter your personal identification number: ";
 	std::getline(std::cin, id);
 	std::cout << "\n";
+	while (!validator->validateID(id)) {
+		std::cout << "Enter your personal identification number: ";
+		std::getline(std::cin, id);
+	}
 	std::cout << "Enter your address: ";
 	std::getline(std::cin, address);
 	std::cout << "\n";
+	while (!validator->validateAddress(address)) {
+		std::cout << "Enter your address: ";
+		std::getline(std::cin, address);
+	}
 	std::cout << "Enter your username: ";
 	std::getline(std::cin, username);
+	while (!validator->doesAccountExist(username)) {
+		std::cout << "This account doesn't exist. Please enter your username correctly: ";
+		std::getline(std::cin, username);
+	}
 	std::cout << "\n";
 	std::cout << "You have entered all of your personal data. Thank you for your cooperation and trusting Horizon! Now you must write your will.";
 	std::cout << "\n";
 	std::getline(std::cin, will);
+	std::cout << "\n";
 
 	process->addDigitalWill(password, names, id, address, username, will);
 
@@ -99,6 +122,7 @@ static void newWill() {
 	}
 
 	delete process;
+	delete validator;
 	delete texture;
 	delete star;
 }
