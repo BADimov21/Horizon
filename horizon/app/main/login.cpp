@@ -54,7 +54,7 @@ void User::existingUser(bool& checkUser, std::string& username, std::string& pas
 }
 
 
-void User::newUser(std::string& username, std::string& password) const {
+void User::newUser(std::string& username, std::string& password, std::string& email) const {
 	DataAccess* account = new DataAccess();
 	Validate* validator = new Validate();
 	bool check = false;
@@ -77,11 +77,19 @@ void User::newUser(std::string& username, std::string& password) const {
 			std::cout << "Enter your desired password: ";
 			getPassword(password);
 
-			while (!validator->validatePassword(password)) {
+			while (!validator->validateAccountPassword(password)) {
 				getPassword(password);
 			}
 
-			account->addAccount(username, password);
+			std::cout << '\n';
+			std::cout << "Enter your email address: ";
+			std::cin >> email;
+
+			while (!validator->validateAccountEmail(email)){
+				std::cin >> email;
+			}
+
+			account->addAccount(username, password, email);
 			std::cout << "Thank you, " << username << "! Make sure to keep your credentials safe!" << "\n";
 			std::cout << "\n";
 			check = true;
@@ -165,8 +173,7 @@ void login() {
 	User* user = new User();
 	Stars* star = new Stars();
 
-	std::string username;
-	std::string password;
+	std::string username, password, email;
 
 	const Rectangle willButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 150, 270, 100 };
 	const Rectangle learnButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 20, 270, 100 };
@@ -190,7 +197,7 @@ void login() {
 			break;
 
 		case 'B':
-			user->newUser(username, password);
+			user->newUser(username, password, email);
 			validChoice = true;
 			break;
 

@@ -18,7 +18,7 @@ static void newWill() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
 
-	std::string willPassword, accountPassword, names, id, address, username, will;
+	std::string willPassword, accountPassword, names, id, address, username, will, email;
 
 	Vector2 mousePosition = GetMousePosition();
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
@@ -43,7 +43,7 @@ static void newWill() {
 	std::cout << "You have to think of a password to which only you have access." << "\n";
 	std::cout << "Enter your desired password: ";
 	std::getline(std::cin, willPassword);
-	while (!validator->validatePassword(willPassword)) {
+	while (!validator->validateWillPassword(willPassword)) {
 		std::cout << "Enter your desired password: ";
 		std::getline(std::cin, willPassword);
 	}
@@ -69,6 +69,13 @@ static void newWill() {
 		std::cout << "Enter your address: ";
 		std::getline(std::cin, address);
 	}
+	std::cout << "Enter your email address: ";
+	std::getline(std::cin, email);
+	std::cout << "\n";
+	while (!validator->validateWillEmail(email)) {
+		std::cout << "Enter your email address: ";
+		std::getline(std::cin, email);
+	}
 	std::cout << "Enter your username: ";
 	std::getline(std::cin, username);
 	while (!validator->doesAccountExist(username)) {
@@ -81,7 +88,7 @@ static void newWill() {
 		std::cout << "Incorrect password. Please try again: ";
 		user->getPassword(accountPassword);
 	}
-	if (validator->doesWillExist(username, accountPassword)) {
+	if (validator->doesWillExist(username, accountPassword, email)) {
 		std::cout << "\n";
 		std::cout << "This account has already submitted their will in Horizon's database." << "\n";
 	}
@@ -100,8 +107,8 @@ static void newWill() {
 			std::cout << "Important! This is the serial number of your digital will: " << serialNumber() << "." << "\n";
 			std::cout << "If you have any questions regarding your digital will, you want to delete it or edit it and etc., send us an email proving your identity and enclosing the code of your will for further assistance." << "\n";
 		}
-		process->addUserWill(username, accountPassword);
-		process->addDigitalWill(username, willPassword, names, id, address, will, serialNumber());
+		process->addUserWill(username, accountPassword, email);
+		process->addDigitalWill(username, willPassword, names, id, address, will, serialNumber(), email);
 	}
 
 	while (!WindowShouldClose()) {

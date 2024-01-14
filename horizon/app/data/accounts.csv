@@ -1,7 +1,5 @@
-Username,Password,Will
-admin,admin,1
-BADimov21,FAKEPASS123,1
-Tedo,Tedo,1
-GSRadev21,1234,1
-MANQKA123LUDAKA,Horizon1234,1
-MANQKA124LUDAKA,Horizon1234,1
+Username,Password,Email,Will
+admin,admin,admin,1
+BADimov21,FAKEPASS123,BADimov21@codingburgas.bg,1
+Tedo,Tedo,TDTanev21@codingburgas.bg,1
+GSRadev21,1234,GSRadev21@codingburgas.bg,1

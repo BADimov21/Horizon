@@ -1,17 +1,18 @@
 #include "validate.h"
 
-const bool Validate::doesWillExist(const std::string& username, const std::string& password) const {
+const bool Validate::doesWillExist(const std::string& username, const std::string& password, const std::string& email) const {
     std::ifstream file("../data/accounts.csv");
     std::string line;
 
     while (std::getline(file, line)) {
         std::istringstream iss(line);
-        std::string storedUsername, storedPassword, will;
+        std::string storedUsername, storedPassword, storedEmail, will;
 
         if (std::getline(iss, storedUsername, ',') &&
             std::getline(iss, storedPassword, ',') &&
+            std::getline(iss, storedEmail, ',') &&
             std::getline(iss, will, ',')) {
-            if (username == storedUsername && password == storedPassword) {
+            if (username == storedUsername && password == storedPassword && email == storedEmail) {
                 if (will == "1") {
                     return true;
                 }
@@ -73,7 +74,7 @@ const bool Validate::doesAccountExist(const std::string& targetUsername) const {
 }
 
 const bool Validate::doesSerialNumberExist(const std::string& serialNumber) const {
-    std::ifstream file("../data/userDatabase.csv");
+    std::ifstream file("../data/digitalWills.csv");
     std::string line;
 
     while (std::getline(file, line)) {
@@ -112,7 +113,7 @@ const bool Validate::isPasswordCorrect(const std::string& targetUsername, const 
 }
 
 static bool doesPasswordExist(const std::string& password) {
-    std::ifstream file("../data/userDatabase.csv");
+    std::ifstream file("../data/digitalWills.csv");
     std::string line;
 
     while (std::getline(file, line)) {
@@ -134,7 +135,7 @@ static bool doesPasswordExist(const std::string& password) {
     return false;
 }
 
-const bool Validate::validatePassword(const std::string& password) const {
+const bool Validate::validateWillPassword(const std::string& password) const {
     if (password.length() < 8) {
         std::cout << "Password must be at least 8 characters long." << "\n";
         return false;
@@ -175,6 +176,48 @@ const bool Validate::validatePassword(const std::string& password) const {
 
     if (doesPasswordExist(password)) {
         std::cout << "Error. Password already exists for a different digital will. Please choose a different password." << "\n";
+        return false;
+    }
+
+    return true;
+}
+
+const bool Validate::validateAccountPassword(const std::string& password) const {
+    if (password.length() < 8) {
+        std::cout << "Password must be at least 8 characters long." << "\n";
+        return false;
+    }
+    if (password.find(' ') != std::string::npos) {
+        std::cout << "Password cannot contain spaces." << "\n";
+        return false;
+    }
+    if (std::all_of(password.begin(), password.end(), ::isdigit)) {
+        std::cout << "Password cannot consist only of numbers." << "\n";
+        return false;
+    }
+    if (std::all_of(password.begin(), password.end(), ::isalpha)) {
+        std::cout << "Password cannot consist only of letters." << "\n";
+        return false;
+    }
+
+    bool hasUppercase = false;
+    bool hasLowercase = false;
+    bool hasDigit = false;
+
+    for (char ch : password) {
+        if (std::isupper(ch)) {
+            hasUppercase = true;
+        }
+        else if (std::islower(ch)) {
+            hasLowercase = true;
+        }
+        else if (std::isdigit(ch)) {
+            hasDigit = true;
+        }
+    }
+
+    if (!hasUppercase || !hasLowercase || !hasDigit) {
+        std::cout << "Password must have at least one uppercase letter, one lowercase letter, and one digit." << "\n";
         return false;
     }
 
@@ -280,4 +323,73 @@ const bool Validate::openWill(const std::string& password, UserData& userData) c
 
     file.close();
     return passwordMatch;
+}
+
+static bool doesEmailExist(const std::string& email) {
+    std::ifstream file("../data/accounts.csv");
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::vector<std::string> columns;
+
+        while (std::getline(iss, line, ',')) {
+            columns.push_back(line);
+        }
+
+        if (columns.size() >= 3 && columns[2] == email) {
+            file.close();
+            return true;
+        }
+    }
+
+    file.close();
+    return false;
+}
+
+const bool Validate::validateAccountEmail(const std::string& email) const {
+    size_t atPos = email.find('@');
+    size_t dotPos = email.find('.', atPos);
+    if (atPos == std::string::npos || atPos == 0 || atPos == email.length() - 1) {
+        std::cout << "Your email is invalid." << "\n";
+        return false;
+    }
+
+    if (dotPos == std::string::npos || dotPos == email.length() - 1) {
+        std::cout << "Your email is invalid." << "\n";
+        return false;
+    }
+
+    if (email.find(' ') != std::string::npos) {
+        std::cout << "Your email cannot contain spaces." << "\n";
+        return false;
+    }
+
+    if (doesEmailExist(email)) {
+        std::cout << "Account with this email already exists. Please create an account with a different email or contact our team for assistance." << "\n";
+        return false;
+    }
+
+    return true;
+}
+
+const bool Validate::validateWillEmail(const std::string& email) const {
+    size_t atPos = email.find('@');
+    size_t dotPos = email.find('.', atPos);
+    if (atPos == std::string::npos || atPos == 0 || atPos == email.length() - 1) {
+        std::cout << "Your email is invalid." << "\n";
+        return false;
+    }
+
+    if (dotPos == std::string::npos || dotPos == email.length() - 1) {
+        std::cout << "Your email is invalid." << "\n";
+        return false;
+    }
+
+    if (email.find(' ') != std::string::npos) {
+        std::cout << "Your email cannot contain spaces." << "\n";
+        return false;
+    }
+
+    return true;
 }
