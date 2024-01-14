@@ -1,6 +1,6 @@
 <p align="center">
      <img align="center" src="https://cdn.discordapp.com/attachments/1184487440862433320/1191434569354854400/c934e711-5052-4b11-9c7c-9de9d48d5d9a-removebg-preview_auto_x2-removebg-preview.png?ex=65a56ce9&is=6592f7e9&hm=0c765e79f80b10bda3a1ca696bd5d2502bf02b0d4151e8b877c1abe6d69a9f03&" alt="Horizon Logo" width="250", height="250">
-     <img align="center" src="https://cdn.discordapp.com/attachments/819832109031096321/1192549475806355556/x.png?ex=65a97b3f&is=6597063f&hm=e1ef8ae91d687e7b1d9e23d02a14c3466a803f074fa6eceaaba7b1ca504cca27&" alt="Collaboration Image" width="100", height="100">
+     <img align="center" src="https://cdn.discordapp.com/attachments/1184487440862433320/1196069231427584080/Red_Letter_X_on_a_black_background-removebg-preview_1.png?ex=65b64946&is=65a3d446&hm=0265c3fc25e3196e4100d2ff30d319c98b7a56379c61458f90ddf86197342475&" alt="Collaboration Image" width="100", height="100">
      <img align="center" src="https://cdn.discordapp.com/attachments/1184487440862433320/1192545257515139252/project_logo.png?ex=65a97751&is=65970251&hm=3dd740656659980419e7e18ac2e46926a9b85f9285ff95acf0e68553fe941700&" alt="Project Logo" width="270", height="270">
 </p>
     
@@ -38,7 +38,7 @@
 <h2 id="about-the-project">About The Project</h2>
     
 <p align="justify">
-    Information to be added.
+    The goal of our application is to ensure security and efficiency for its users when creating their digital will. They can ensure a secure future for their heirs, even when they are no longer physically present, thanks to the simplified and understandable mechanics of "Horizon". No matter how uncertain the future may be, you will be prepared for it!
 </p>
 <p> - The Horizon Team ❤️</p>
     
@@ -51,9 +51,9 @@
 <br>
     
     
-|                               Application                             |                               Main Menu                                |
-| :-------------------------------------------------------------------: | :--------------------------------------------------------------------: |
-| Pictures to be added.                                                 | Pictures to be added.                                                  |
+|                               Main Menu                               |
+| :-------------------------------------------------------------------: | 
+| <img src="https://cdn.discordapp.com/attachments/1184487440862433320/1196069997378818078/image.png?ex=65b649fd&is=65a3d4fd&hm=5e421a472cb12e1dd6b501f0b94501aee6dd5b7103fa56aebed7b1778144b76f&" alt="Main Menu"></a> |
 
     
 </details>
