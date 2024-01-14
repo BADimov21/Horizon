@@ -2,6 +2,7 @@
 #include "layout.h"
 #include "textures.h"
 
+// Shows how a digital will should be made.
 static void exampleWill() {
 	Textures* texture = new Textures();
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
@@ -18,6 +19,7 @@ static void exampleWill() {
 	delete texture;
 }
 
+// Shows what a digital will means and how it looks like.
 static void digWillDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
@@ -64,6 +66,7 @@ static void digWillDef() {
 		DrawTextEx(customFont, "digital will, information such as: user names, passwords, emails, keys to cyber wallets, etc., is ", Vector2{ (float)(GetScreenWidth() / 2) - 670, (float)(GetScreenHeight() / 2) - 50 }, 35, 1, WHITE);
 		DrawTextEx(customFont, "described. This information is used by the executor(s) to access the bequeathed digital assets. ", Vector2{ (float)(GetScreenWidth() / 2) - 670, (float)(GetScreenHeight() / 2) }, 35, 1, WHITE);
 
+		// Button logic.
 		bool isMouseOverButton = CheckCollisionPointRec(mousePosition, makeAnExampleWill);
 		DrawRectangleRec(makeAnExampleWill, (isMouseOverButton ? GOLD : ORANGE));
 		DrawTextEx(customFont, "Example Will", Vector2{ ((float)GetScreenWidth() / 2) - 110, ((float)GetScreenHeight() / 2) + 200 }, 50, 1, BLACK);
@@ -82,6 +85,7 @@ static void digWillDef() {
 	delete star;
 }
 
+// Shows what a digital asset means. 
 static void digAssetDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
@@ -137,6 +141,7 @@ static void digAssetDef() {
 	delete star;
 }
 
+// Shows what blockchain means.
 static void blockchainDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
@@ -192,6 +197,7 @@ static void blockchainDef() {
 	delete star;
 }
 
+// Shows what a digital liability means.
 static void liabilityDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
@@ -247,6 +253,7 @@ static void liabilityDef() {
 	delete star;
 }
 
+// Shows the definitions linked with digital will making.
 void learn() {
 	const int screenWidth = 1920;
 	const int screenHeight = 975;
@@ -296,6 +303,7 @@ void learn() {
 		DrawTextEx(customFont, "HORIZON", Vector2{ (float)screenWidth / 2 - MeasureText("HORIZON", 40) / 2 - 10, screenHeight / 2 - 400 }, 50, 10, RAYWHITE);
 		DrawTextEx(customFont, "Here are the definitions. Choose the one you would like to learn!", Vector2{ (float)screenWidth / 2 - MeasureText("Here are the definitions. Choose the one you would like to learn!", 20) / 2 - 120, screenHeight / 2 - 350 }, 40, 1, RAYWHITE);
 
+		// Buttons logic.
 		bool isMouseOverButtonWill = CheckCollisionPointRec(mousePosition, digWillButton);
 		DrawRectangleRec(digWillButton, (isMouseOverButtonWill ? SKYBLUE : BLUE));
 		DrawTextEx(customFont, "Digital Will", Vector2{ (screenWidth / 2) - 75, (screenHeight / 2) - 235 }, 50, 1, BLACK);

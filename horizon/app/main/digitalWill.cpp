@@ -4,6 +4,7 @@
 #include "validate.h"
 #include "dataAccess.h"
 
+// Random number generator.
 static std::string serialNumber() {
 	std::random_device rd;
 	std::mt19937 gen(rd());
@@ -11,6 +12,7 @@ static std::string serialNumber() {
 	return std::to_string(dis(gen));
 }
 
+// Opens the window in which the user makes their will.
 static void newWill() {
 	DataAccess* process = new DataAccess();
 	Validate* validator = new Validate();
@@ -34,6 +36,7 @@ static void newWill() {
 		star->stars.push_back(*star);
 	}
 
+	// Making a will sequence and logic.
 	system("cls");
 	std::cout << "Horizon - Your Digital Will Company" << "\n";
 	std::cout << "Your Digital Will Making Process:" << "\n";
@@ -168,6 +171,7 @@ static void newWill() {
 	delete star;
 }
 
+// Opens the will which the user has made for review.
 static void reviewWill() {
 	Validate* validator = new Validate();
 	UserData* data = new UserData();
@@ -200,6 +204,7 @@ static void reviewWill() {
 	while (!WindowShouldClose()) {
 		mousePosition = GetMousePosition();
 
+		// Password input logic.
 		if (CheckCollisionPointRec(mousePosition, textBox)) {
 			mouseOnText = true;
 		}
@@ -309,6 +314,7 @@ static void reviewWill() {
 	delete star;
 }
 
+// Gives you an opportunity to create a new will or to review an existing one. 
 void digitalWill() {
 	const int screenWidth = 1920;
 	const int screenHeight = 975;
@@ -361,6 +367,7 @@ void digitalWill() {
 		DrawRectangleRec(digWillButton, (isMouseOverButtonNewWill ? SKYBLUE : BLUE));
 		DrawTextEx(customFont, "New Will", Vector2{ (screenWidth / 2) - 60, (screenHeight / 2) - 235 }, 50, 1, BLACK);
 
+		// Buttons logic.
 		if (isMouseOverButtonNewWill && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			MinimizeWindow();
 			newWill();

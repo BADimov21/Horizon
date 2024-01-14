@@ -1,17 +1,20 @@
 #include "dataAccess.h"
 
+// Adds an account to the database "accounts".
 void DataAccess::addAccount(const std::string& username, const std::string& password, const std::string& email) const {
     std::ofstream file("../data/accounts.csv", std::ios_base::app);
     file << username << ',' << password << ',' << email << "\n";
     file.close();
 }
 
+// Adds a digital will to database "digitalWills".
 void DataAccess::addDigitalWill(const std::string& username, const std::string& password, const std::string& names, const std::string& id, const std::string& address, const std::string& will, const std::string& serialNumber, const std::string& email) const {
     std::ofstream file("../data/digitalWills.csv", std::ios_base::app);
     file << username << ',' << password << ',' << names << ',' << id << ',' << address << ',' << will << ',' << serialNumber << ',' << email << "\n";
     file.close();
 }
 
+// Checks if a given user already exists.
 static bool userExists(const std::string& username, const std::string& password, const std::string& email, std::vector<std::string>& lines) {
     for (const auto& line : lines) {
         std::istringstream iss(line);
@@ -26,6 +29,7 @@ static bool userExists(const std::string& username, const std::string& password,
     return false;
 }
 
+// Adds an indication to check whether a user already has a will in the database or not.
 void DataAccess::addUserWill(const std::string& username, const std::string& password, const std::string& email) const {
     std::fstream file("../data/accounts.csv", std::ios::in | std::ios::out);
     std::vector<std::string> lines;

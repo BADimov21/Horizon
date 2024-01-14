@@ -4,6 +4,7 @@
 #include "validate.h"
 #include "dataAccess.h"
 
+// Stores a password input and it outputs "*" on the screen, in order to hide it.
 void User::getPassword(std::string& password) const {
 	password.clear();
 	char ch;
@@ -22,6 +23,7 @@ void User::getPassword(std::string& password) const {
 	std::cout << '\n';
 }
 
+// Checks if an account already exists.
 void User::existingUser(bool& checkUser, std::string& username, std::string& password) const {
 	Validate* validator = new Validate();
 	std::getline(std::cin, username);
@@ -53,7 +55,7 @@ void User::existingUser(bool& checkUser, std::string& username, std::string& pas
 	delete validator;
 }
 
-
+// Stores and sends the data of a new user to the database.
 void User::newUser(std::string& username, std::string& password, std::string& email) const {
 	DataAccess* account = new DataAccess();
 	Validate* validator = new Validate();
@@ -99,6 +101,7 @@ void User::newUser(std::string& username, std::string& password, std::string& em
 	delete validator;
 }
 
+// Shows what the user could do if there is something wrong with the application.
 void User::issues() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
@@ -151,11 +154,13 @@ void User::issues() {
 	}
 }
 
+// Returns the collision with a position and a rectangle.
 static bool checkCollisionPointRec(const Vector2 point, const Rectangle rec) {
 	return (point.x >= rec.x && point.x <= (rec.x + rec.width) &&
 		point.y >= rec.y && point.y <= (rec.y + rec.height));
 }
 
+// Checks if a text has been clicked.
 static bool checkTextClick(const char* text, Font font, int fontSize, float posX, float posY, Color textColor, Color highlightColor) {
 	float textWidth = MeasureTextEx(font, text, (float)fontSize, 0).x;
 	const Vector2 textPosition = { posX, posY };
@@ -165,6 +170,7 @@ static bool checkTextClick(const char* text, Font font, int fontSize, float posX
 	return mouseOver && IsMouseButtonPressed(MOUSE_LEFT_BUTTON);
 }
 
+// Gives you an opportunity to create a new account or log in with an existing one.
 void login() {
 	const int screenWidth = 1920;
 	const int screenHeight = 975;
@@ -183,6 +189,7 @@ void login() {
 	bool validChoice = false;
 	char choice;
 
+	// Log in / Sign up sequence and logic.
 	std::cout << "Welcome to Horizon!" << "\n";
 	std::cout << "Tomorrow is not certain, do it now!" << "\n";
 	std::cout << "With the service of our company - 'Horizon'!" << "\n";
@@ -263,6 +270,7 @@ void login() {
 			user->issues();
 		}
 
+		// Buttons logic.
 		Vector2 mousePosition = GetMousePosition();
 		bool isMouseOverButtonWill = checkCollisionPointRec(mousePosition, willButton);
 

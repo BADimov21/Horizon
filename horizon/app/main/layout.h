@@ -2,6 +2,7 @@
 
 #include "pch.h"
 
+// Contains the attributes for the rain effect.
 class Stars {
 public:
     const int maxStars = 5;

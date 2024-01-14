@@ -1,5 +1,6 @@
 #include "validate.h"
 
+// Checks if the user has an existing will or not.
 const bool Validate::doesWillExist(const std::string& username, const std::string& password, const std::string& email) const {
     std::ifstream file("../data/accounts.csv");
     std::string line;
@@ -25,6 +26,7 @@ const bool Validate::doesWillExist(const std::string& username, const std::strin
     return false;
 }
 
+// Validates if the username meets the criteria.
 const bool Validate::validateUsername(const std::string& username) const {
     if (username.length() == 1) {
         std::cout << "Username cannot be a single character." << "\n";
@@ -56,6 +58,7 @@ const bool Validate::validateUsername(const std::string& username) const {
     return true;
 }
 
+// Checks if the user has an existing account or not.
 const bool Validate::doesAccountExist(const std::string& targetUsername) const {
     std::ifstream file("../data/accounts.csv");
     std::string line;
@@ -73,6 +76,7 @@ const bool Validate::doesAccountExist(const std::string& targetUsername) const {
     return false;
 }
 
+// Checks if a serial number already exists in the database.
 const bool Validate::doesSerialNumberExist(const std::string& serialNumber) const {
     std::ifstream file("../data/digitalWills.csv");
     std::string line;
@@ -94,7 +98,8 @@ const bool Validate::doesSerialNumberExist(const std::string& serialNumber) cons
     file.close();
     return false;
 }
-
+ 
+// Checks if the inputted password corresponds to the user's username.
 const bool Validate::isPasswordCorrect(const std::string& targetUsername, const std::string& targetPassword) const {
     std::ifstream file("../data/accounts.csv");
     std::string line;
@@ -112,6 +117,7 @@ const bool Validate::isPasswordCorrect(const std::string& targetUsername, const 
     return false;
 }
 
+// Checks if given password is already in the database.
 static bool doesPasswordExist(const std::string& password) {
     std::ifstream file("../data/digitalWills.csv");
     std::string line;
@@ -135,6 +141,7 @@ static bool doesPasswordExist(const std::string& password) {
     return false;
 }
 
+// Validates if the password key of the user's will meets the criteria and if it already exists in the database.
 const bool Validate::validateWillPassword(const std::string& password) const {
     if (password.length() < 8) {
         std::cout << "Password must be at least 8 characters long." << "\n";
@@ -182,6 +189,7 @@ const bool Validate::validateWillPassword(const std::string& password) const {
     return true;
 }
 
+// Validates if the account password of the user meets the criteria.
 const bool Validate::validateAccountPassword(const std::string& password) const {
     if (password.length() < 8) {
         std::cout << "Password must be at least 8 characters long." << "\n";
@@ -224,6 +232,7 @@ const bool Validate::validateAccountPassword(const std::string& password) const 
     return true;
 }
 
+// Validates if the user's ID meets the criteria.
 const bool Validate::validateID(const std::string& id) const {
     for (char ch : id) {
         if (!std::isdigit(ch)) {
@@ -245,6 +254,7 @@ const bool Validate::validateID(const std::string& id) const {
     return true;
 }
 
+// Validates if the user's first name, surname and last name meet the criteria.
 const bool Validate::validateName(const std::string& fullName) const {
     std::istringstream iss(fullName);
     std::string firstName, surname, lastName;
@@ -266,6 +276,7 @@ const bool Validate::validateName(const std::string& fullName) const {
     return true;
 }
 
+// Validates if the user's address meets the criteria.
 const bool Validate::validateAddress(const std::string& address) const {
     if (address.empty()) {
         std::cout << "Invalid address. Please enter a non-empty address." << std::endl;
@@ -294,6 +305,7 @@ const bool Validate::validateAddress(const std::string& address) const {
     return true;
 }
 
+// Contains the data of the user with a specific will.
 const bool Validate::openWill(const std::string& password, UserData& userData) const {
     std::ifstream file("../data/digitalWills.csv");
     std::string line;
@@ -325,6 +337,7 @@ const bool Validate::openWill(const std::string& password, UserData& userData) c
     return passwordMatch;
 }
 
+// Validates if the user's will email meets the criteria.
 static bool doesEmailExist(const std::string& email) {
     std::ifstream file("../data/accounts.csv");
     std::string line;
@@ -347,6 +360,7 @@ static bool doesEmailExist(const std::string& email) {
     return false;
 }
 
+// Validates if the user's account email meets the criteria and if it already exists in the database.
 const bool Validate::validateAccountEmail(const std::string& email) const {
     size_t atPos = email.find('@');
     size_t dotPos = email.find('.', atPos);
@@ -373,6 +387,7 @@ const bool Validate::validateAccountEmail(const std::string& email) const {
     return true;
 }
 
+// Validates if the user's will email meets the criteria.
 const bool Validate::validateWillEmail(const std::string& email) const {
     size_t atPos = email.find('@');
     size_t dotPos = email.find('.', atPos);
