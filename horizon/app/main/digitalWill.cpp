@@ -20,7 +20,7 @@ static void newWill() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
 
-	std::string willPassword, accountPassword, names, id, address, username, will, email;
+	std::string willPassword, accountPassword, names, id, address, username, will, email, random = serialNumber();
 
 	Vector2 mousePosition = GetMousePosition();
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
@@ -103,15 +103,10 @@ static void newWill() {
 		std::cout << "\n";
 		std::cout << "Your will has successfully been submitted! Thank you one more time for trusting Horizon!";
 		std::cout << "\n";
-		if (validator->doesSerialNumberExist(serialNumber())) {
-				serialNumber();
-		}
-		else {
-			std::cout << "Important! This is the serial number of your digital will: " << serialNumber() << "." << "\n";
-			std::cout << "If you have any questions regarding your digital will, you want to delete it or edit it and etc., send us an email proving your identity and enclosing the code of your will for further assistance." << "\n";
-		}
+		std::cout << "Important! This is the serial number of your digital will: " << random << "." << "\n";
+		std::cout << "If you have any questions regarding your digital will, you want to delete it or edit it and etc., send us an email proving your identity and enclosing the code of your will for further assistance." << "\n";
 		process->addUserWill(username, accountPassword, email);
-		process->addDigitalWill(username, willPassword, names, id, address, will, serialNumber(), email);
+		process->addDigitalWill(username, willPassword, names, id, address, will, random, email);
 	}
 
 	while (!WindowShouldClose()) {
@@ -137,7 +132,7 @@ static void newWill() {
 
 		DrawRectangleLines(300, 85, 1280, 820, BLACK);
 		DrawTextEx(customFont, "HORIZON", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("HORIZON", 40) / 2 - 20, (float)GetScreenHeight() / 2 - 470 }, 50, 10, BLACK);
-		DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 300 }, 40, 1, BLACK);
+		DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 400 }, 40, 1, BLACK);
 		DrawTextEx(customFont, "Full name:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Full Name:", 40) / 2 - 470, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
 		DrawTextEx(customFont, names.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(names.c_str(), 40) / 2 - 130, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
 		DrawTextEx(customFont, "Personal ID:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Personal ID : ", 40) / 2 - 430, (float)GetScreenHeight() / 2 - 200 }, 30, 1, BLACK);
@@ -379,6 +374,8 @@ void digitalWill() {
 		if (isMouseOverReviewWill && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			reviewWill();
 		}
+
+		DrawTexture(texture->getResizedLogo(), screenWidth - 180, screenHeight - 180, WHITE);
 
 		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
 

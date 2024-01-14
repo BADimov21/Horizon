@@ -3,7 +3,7 @@
 // Adds an account to the database "accounts".
 void DataAccess::addAccount(const std::string& username, const std::string& password, const std::string& email) const {
     std::ofstream file("../data/accounts.csv", std::ios_base::app);
-    file << username << ',' << password << ',' << email << "\n";
+    file << username << ',' << password << ',' << email << "0" << "\n";
     file.close();
 }
 

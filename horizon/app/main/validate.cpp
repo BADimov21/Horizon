@@ -75,29 +75,6 @@ const bool Validate::doesAccountExist(const std::string& targetUsername) const {
     }
     return false;
 }
-
-// Checks if a serial number already exists in the database.
-const bool Validate::doesSerialNumberExist(const std::string& serialNumber) const {
-    std::ifstream file("../data/digitalWills.csv");
-    std::string line;
-
-    while (std::getline(file, line)) {
-        std::istringstream iss(line);
-        std::vector<std::string> columns;
-
-        while (std::getline(iss, line, ',')) {
-            columns.push_back(line);
-        }
-
-        if (columns.size() >= 7 && columns[6] == serialNumber) {
-            file.close();
-            return true;
-        }
-    }
-
-    file.close();
-    return false;
-}
  
 // Checks if the inputted password corresponds to the user's username.
 const bool Validate::isPasswordCorrect(const std::string& targetUsername, const std::string& targetPassword) const {
@@ -270,6 +247,18 @@ const bool Validate::validateName(const std::string& fullName) const {
 
     if (firstName.length() < 2 || surname.length() < 2 || lastName.length() < 2) {
         std::cout << "Too few characters. Be sure you have entered your names correctly!" << std::endl;
+        return false;
+    }
+
+    bool hasNumericCharacter = false;
+    for (char ch : fullName) {
+        if (std::isdigit(ch)) {
+            hasNumericCharacter = true;
+            break;
+        }
+    }
+    if (hasNumericCharacter) {
+        std::cout << "Invalid name. Please only include letters." << std::endl;
         return false;
     }
 

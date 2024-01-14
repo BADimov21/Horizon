@@ -21,8 +21,6 @@ public:
 	const bool doesWillExist(const std::string& username, const std::string& password, const std::string& email) const;
     // Checks if the user has an existing account or not.
 	const bool doesAccountExist(const std::string& targetUsername) const;
-	// Checks if a serial number already exists in the database.
-	const bool doesSerialNumberExist(const std::string& serialNumber) const;
 	// Checks if the inputted password corresponds to the user's username.
 	const bool isPasswordCorrect(const std::string& targetUsername, const std::string& targetPassword) const;
 	// Validates if the username meets the criteria.
