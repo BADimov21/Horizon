@@ -16,10 +16,6 @@ public:
         return resizedBackground;
     }
 
-    const Texture2D& getResizedReviewWillBackground() const {
-        return resizedReviewWillBackground;
-    }
-
     const Texture2D& getResizedNewWillBackground() const {
         return resizedNewWillBackground;
     }
@@ -38,7 +34,6 @@ public:
 
 private:
     Texture2D resizedBackground = { 0 };
-    Texture2D resizedReviewWillBackground = { 0 };
     Texture2D resizedNewWillBackground = { 0 };
     Texture2D starTexture = { 0 };
     Texture2D resizedLogo = { 0 };
@@ -49,11 +44,6 @@ private:
         ImageResize(&background, GetScreenWidth(), GetScreenHeight());
         resizedBackground = LoadTextureFromImage(background);
         UnloadImage(background);
-
-        Image reviewWillBackground = LoadImage("../assets/review_will.png");
-        ImageResize(&reviewWillBackground, GetScreenWidth(), GetScreenHeight());
-        resizedReviewWillBackground = LoadTextureFromImage(reviewWillBackground);
-        UnloadImage(reviewWillBackground);
 
         Image newWillBackground = LoadImage("../assets/new_will.png");
         ImageResize(&newWillBackground, GetScreenWidth(), GetScreenHeight());
@@ -77,7 +67,6 @@ private:
 
     void unloadAllTextures() const {
         UnloadTexture(resizedBackground);
-        UnloadTexture(resizedReviewWillBackground);
         UnloadTexture(resizedNewWillBackground);
         UnloadTexture(starTexture);
         UnloadTexture(resizedLogo);

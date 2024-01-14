@@ -17,6 +17,8 @@ static void newWill() {
 	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
 	SetExitKey(KEY_ESCAPE);
 
+	bool showWill = false;
+
 	for (size_t i = 0; i < star->maxStars; i++) {
 		star->position.x = (float)GetRandomValue(0, GetScreenWidth());
 		star->position.y = (float)GetRandomValue(0, GetScreenHeight());
@@ -111,13 +113,23 @@ static void newWill() {
 
 		DrawRectangleLines(300, 85, 1280, 820, BLACK);
 		DrawTextEx(customFont, "HORIZON", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("HORIZON", 40) / 2 - 20, (float)GetScreenHeight() / 2 - 470 }, 50, 10, BLACK);
-		DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 400 }, 40, 1, BLACK);
+		DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 300 }, 40, 1, BLACK);
 		DrawTextEx(customFont, "Full name:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Full Name:", 40) / 2 - 470, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
-		DrawTextEx(customFont, names.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(names.c_str(), 40) / 2, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
+		DrawTextEx(customFont, names.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(names.c_str(), 40) / 2 - 130, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
 		DrawTextEx(customFont, "Personal ID:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Personal ID : ", 40) / 2 - 430, (float)GetScreenHeight() / 2 - 200 }, 30, 1, BLACK);
+		DrawTextEx(customFont, id.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(id.c_str(), 40) / 2 - 230, (float)GetScreenHeight() / 2 - 200 }, 30, 1, BLACK);
 		DrawTextEx(customFont, "Address:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Address:", 40) / 2 - 480, (float)GetScreenHeight() / 2 - 100 }, 30, 1, BLACK);
+		DrawTextEx(customFont, address.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(address.c_str(), 40) / 2 - 110 , (float)GetScreenHeight() / 2 - 100 }, 30, 1, BLACK);
 		DrawTextEx(customFont, "Username:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Username:", 40) / 2 - 470, (float)GetScreenHeight() / 2 }, 30, 1, BLACK);
+		DrawTextEx(customFont, username.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(username.c_str(), 40) / 2 - 247, (float)GetScreenHeight() / 2 }, 30, 1, BLACK);
 		DrawTextEx(customFont, "Will: Your will is encrypted! You can take a look at it in the console of the Horizon application!", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your will is encrypted! You can take a look at it in the console of the Horizon application!", 40) / 2 + 350, (float)GetScreenHeight() / 2 + 100 }, 30, 1, BLACK);
+		if (!showWill) {
+			system("cls");
+			std::cout << "\n";
+			std::cout << username << "'s digital will in Horizon's database:" << "\n";
+			std::cout << will << "\n";
+		}
+		showWill = true;
 
 		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (float)(GetScreenWidth() / 2) - 920, (float)(GetScreenHeight() / 2) + 420 }, 25, 1, BLACK);
 
@@ -152,6 +164,7 @@ static void reviewWill() {
 	bool mouseOnText = false;
 	bool displayInfo = false;
 	bool passwordBox = true;
+	bool showWill = false;
 
 	SetExitKey(KEY_ESCAPE);
 
@@ -209,8 +222,6 @@ static void reviewWill() {
 
 		ClearBackground(RAYWHITE);
 
-		DrawTexture(texture->getResizedReviewWillBackground(), 0, 0, WHITE);
-
 		for (size_t i = 0; i < star->stars.size(); i++) {
 			star->stars[i].position.y += star->stars[i].speed;
 
@@ -223,6 +234,7 @@ static void reviewWill() {
 			DrawTextureEx(texture->getStarTexture(), star->stars[i].position, 0, -0.1f, WHITE);
 		}
 		if (passwordBox) {
+			DrawTextEx(customFont, "Enter your digital will's password here:", Vector2{ (float)(GetScreenWidth() / 2) - 340, (float)(GetScreenHeight() / 2) - 400 }, 50, 1, BLACK);
 			DrawRectangleRec(textBox, RAYWHITE);
 
 			if (mouseOnText) {
@@ -241,18 +253,28 @@ static void reviewWill() {
 			}
 		}
 		if (displayInfo) {
-			DrawRectangleLines(300, 85, 1280, 820, BLACK);
+			DrawRectangleLines(300, 85, 1280, 760, BLACK);
 			DrawTextEx(customFont, "HORIZON", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("HORIZON", 40) / 2 - 20, (float)GetScreenHeight() / 2 - 470 }, 50, 10, BLACK);
 			DrawTextEx(customFont, "Your digital will is in our database. You can see it here.", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your digital will is in our database. You can see it here.", 20) / 2 - 130, (float)GetScreenHeight() / 2 - 400 }, 40, 1, BLACK);
 			DrawTextEx(customFont, "Full name:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Full Name:", 40) / 2 - 470, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
-			DrawTextEx(customFont, user.names.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(data->names.c_str(), 40) / 2, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
+			DrawTextEx(customFont, user.names.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(user.names.c_str(), 40) / 2 - 130, (float)GetScreenHeight() / 2 - 300 }, 30, 1, BLACK);
 			DrawTextEx(customFont, "Personal ID:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Personal ID : ", 40) / 2 - 430, (float)GetScreenHeight() / 2 - 200 }, 30, 1, BLACK);
+			DrawTextEx(customFont, user.id.c_str(), Vector2{(float)GetScreenWidth() / 2 - MeasureText(user.id.c_str(), 40) / 2 - 230, (float)GetScreenHeight() / 2 - 200}, 30, 1, BLACK);
 			DrawTextEx(customFont, "Address:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Address:", 40) / 2 - 480, (float)GetScreenHeight() / 2 - 100 }, 30, 1, BLACK);
+			DrawTextEx(customFont, user.address.c_str(), Vector2{(float)GetScreenWidth() / 2 - MeasureText(user.address.c_str(), 40) / 2 - 110 , (float)GetScreenHeight() / 2 - 100}, 30, 1, BLACK);
 			DrawTextEx(customFont, "Username:", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Username:", 40) / 2 - 470, (float)GetScreenHeight() / 2 }, 30, 1, BLACK);
+			DrawTextEx(customFont, user.username.c_str(), Vector2{ (float)GetScreenWidth() / 2 - MeasureText(user.username.c_str(), 40) / 2 - 247, (float)GetScreenHeight() / 2 }, 30, 1, BLACK);
 			DrawTextEx(customFont, "Will: Your will is encrypted! You can take a look at it in the console of the Horizon application!", Vector2{ (float)GetScreenWidth() / 2 - MeasureText("Your will is encrypted! You can take a look at it in the console of the Horizon application!", 40) / 2 + 350, (float)GetScreenHeight() / 2 + 100 }, 30, 1, BLACK);
+			if (!showWill) {
+				system("cls");
+				std::cout << "\n";
+				std::cout << user.username << "'s digital will in Horizon's database:" << "\n";
+				std::cout << user.will << "\n";
+			}
+			showWill = true;
 		}
 
-		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (float)(GetScreenWidth() / 2) - 900, (float)(GetScreenHeight() / 2) + 400 }, 25, 1, WHITE);
+		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (float)(GetScreenWidth() / 2) - 900, (float)(GetScreenHeight() / 2) + 400 }, 25, 1, BLACK);
 
 		DrawTexture(texture->getResizedLogo(), GetScreenWidth() - 180, GetScreenHeight() - 180, WHITE);
 
@@ -279,7 +301,6 @@ void digitalWill() {
 
 	const Rectangle digWillButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 260, 270, 100 };
 	const Rectangle digReviewWillButton = { (screenWidth / 2) - 110, (screenHeight / 2) - 100, 270, 100 };
-	const Rectangle digLogoButton = { (float)GetScreenWidth() - 180, (float)GetScreenHeight() - 150, 270, 100 };
 
 	for (size_t i = 0; i < star->maxStars; i++) {
 		star->position.x = (float)GetRandomValue(0, screenWidth);
@@ -313,7 +334,7 @@ void digitalWill() {
 		DrawTextEx(customFont, "Press ESC key to go back.", Vector2{ (screenWidth / 2) - 900, (screenHeight / 2) + 400 }, 25, 1, WHITE);
 		DrawTextEx(customFont, "HORIZON", Vector2{ (float)screenWidth / 2 - MeasureText("HORIZON", 40) / 2 - 10, screenHeight / 2 - 400 }, 50, 10, RAYWHITE);
 		DrawTextEx(customFont, "Take charge: Create a new will or revisit and refine", Vector2{ (float)screenWidth / 2 - MeasureText("Take charge: Create a new will or revisit and refine!", 20) / 2 - 120, screenHeight / 2 - 350 }, 40, 1, RAYWHITE);
-		DrawTextEx(customFont, "an existing one—securing your legacy with care, right here!", Vector2{ (float)screenWidth / 2 - MeasureText("an existing one—securing your legacy with care, right here!", 20) / 2 - 120, screenHeight / 2 - 320 }, 40, 1, RAYWHITE);
+		DrawTextEx(customFont, "an existing one securing your legacy with care, right here!", Vector2{ (float)screenWidth / 2 - MeasureText("an existing one—securing your legacy with care, right here!", 20) / 2 - 120, screenHeight / 2 - 320 }, 40, 1, RAYWHITE);
 
 		bool isMouseOverButtonNewWill = CheckCollisionPointRec(mousePosition, digWillButton);
 		DrawRectangleRec(digWillButton, (isMouseOverButtonNewWill ? SKYBLUE : BLUE));
@@ -329,12 +350,6 @@ void digitalWill() {
 		DrawTextEx(customFont, "Review Will", Vector2{ (screenWidth / 2) - 85, (screenHeight / 2) - 75 }, 50, 1, BLACK);
 		if (isMouseOverReviewWill && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 			reviewWill();
-		}
-
-		bool isMouseOverLogo = CheckCollisionPointRec(mousePosition, digLogoButton);
-		DrawTexture(texture->getResizedLogo(), screenWidth - 180, screenHeight - 180, WHITE);
-		if (isMouseOverLogo && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-			login();
 		}
 
 		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);

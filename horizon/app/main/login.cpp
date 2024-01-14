@@ -64,8 +64,10 @@ void User::newUser(std::string& username, std::string& password) const {
 	while (!check) {
 		std::cout << "Enter your desired username: ";
 		std::cin >> username;
+
 		if (!validator->validateUsername(username)) {
-			std::cout << "Error! Try again." << "\n";
+			std::cout << "Error. Please try again!" << "\n";
+			std::cin >> username;
 		}
 		else if (validator->doesAccountExist(username)) {
 			std::cout << "Account already exists. Please try again with a different username!" << "\n";
@@ -74,9 +76,11 @@ void User::newUser(std::string& username, std::string& password) const {
 			std::cout << "\n";
 			std::cout << "Enter your desired password: ";
 			getPassword(password);
+
 			while (!validator->validatePassword(password)) {
 				getPassword(password);
 			}
+
 			account->addAccount(username, password);
 			std::cout << "Thank you, " << username << "! Make sure to keep your credentials safe!" << "\n";
 			std::cout << "\n";

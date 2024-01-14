@@ -174,10 +174,10 @@ const bool Validate::validateName(const std::string& fullName) const {
 }
 
 const bool Validate::validateAddress(const std::string& address) const {
-	if (address.empty()) {
-		std::cout << "Invalid address. Please enter a non-empty address." << std::endl;
-		return false;
-	}
+    if (address.empty()) {
+        std::cout << "Invalid address. Please enter a non-empty address." << std::endl;
+        return false;
+    }
 
     size_t spaceCount = std::count(address.begin(), address.end(), ' ');
 
@@ -186,19 +186,19 @@ const bool Validate::validateAddress(const std::string& address) const {
         return false;
     }
 
-	bool hasNumericCharacter = false;
-	for (char ch : address) {
-		if (std::isdigit(ch)) {
-			hasNumericCharacter = true;
-			break;
-		}
-	}
-	if (!hasNumericCharacter) {
-		std::cout << "Invalid address. Please include at least one numeric character." << std::endl;
-		return false;
-	}
+    bool hasNumericCharacter = false;
+    for (char ch : address) {
+        if (std::isdigit(ch)) {
+            hasNumericCharacter = true;
+            break;
+        }
+    }
+    if (!hasNumericCharacter) {
+        std::cout << "Invalid address. Please include at least one numeric character." << std::endl;
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 const bool Validate::openWill(const std::string& password, UserData& userData) const {

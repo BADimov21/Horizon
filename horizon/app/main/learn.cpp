@@ -1,6 +1,7 @@
 #include "login.h"
 #include "layout.h"
 #include "textures.h"
+
 static void digWillDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
