@@ -72,6 +72,28 @@ const bool Validate::doesAccountExist(const std::string& targetUsername) const {
     return false;
 }
 
+const bool Validate::doesSerialNumberExist(const std::string& serialNumber) const {
+    std::ifstream file("../data/userDatabase.csv");
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::vector<std::string> columns;
+
+        while (std::getline(iss, line, ',')) {
+            columns.push_back(line);
+        }
+
+        if (columns.size() >= 7 && columns[6] == serialNumber) {
+            file.close();
+            return true;
+        }
+    }
+
+    file.close();
+    return false;
+}
+
 const bool Validate::isPasswordCorrect(const std::string& targetUsername, const std::string& targetPassword) const {
     std::ifstream file("../data/accounts.csv");
     std::string line;
@@ -86,6 +108,29 @@ const bool Validate::isPasswordCorrect(const std::string& targetUsername, const 
             }
         }
     }
+    return false;
+}
+
+static bool doesPasswordExist(const std::string& password) {
+    std::ifstream file("../data/userDatabase.csv");
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::vector<std::string> columns;
+
+        while (std::getline(iss, line, ',')) {
+            columns.push_back(line);
+        }
+
+        if (columns.size() >= 2 && columns[1] == password) {
+            std::cout << "Password already exists in the database." << "\n";
+            file.close();
+            return true;
+        }
+    }
+
+    file.close();
     return false;
 }
 
@@ -125,6 +170,11 @@ const bool Validate::validatePassword(const std::string& password) const {
 
     if (!hasUppercase || !hasLowercase || !hasDigit) {
         std::cout << "Password must have at least one uppercase letter, one lowercase letter, and one digit." << "\n";
+        return false;
+    }
+
+    if (doesPasswordExist(password)) {
+        std::cout << "Error. Password already exists for a different digital will. Please choose a different password." << "\n";
         return false;
     }
 

@@ -1,5 +1,4 @@
-﻿  login.cpp
-raylib.lib(rcore.c.obj) : warning LNK4099: PDB '' was not found with 'raylib.lib(rcore.c.obj)' or at ''; linking object as if no debug info
+﻿raylib.lib(rcore.c.obj) : warning LNK4099: PDB '' was not found with 'raylib.lib(rcore.c.obj)' or at ''; linking object as if no debug info
 raylib.lib(rshapes.c.obj) : warning LNK4099: PDB '' was not found with 'raylib.lib(rshapes.c.obj)' or at ''; linking object as if no debug info
 raylib.lib(rtextures.c.obj) : warning LNK4099: PDB '' was not found with 'raylib.lib(rtextures.c.obj)' or at ''; linking object as if no debug info
 raylib.lib(rtext.c.obj) : warning LNK4099: PDB '' was not found with 'raylib.lib(rtext.c.obj)' or at ''; linking object as if no debug info

@@ -16,6 +16,7 @@ public:
 	const bool openWill(const std::string& password, UserData& userData) const;
 	const bool doesWillExist(const std::string& username, const std::string& password) const;
 	const bool doesAccountExist(const std::string& targetUsername) const;
+	const bool doesSerialNumberExist(const std::string& serialNumber) const;
 	const bool isPasswordCorrect(const std::string& targetUsername, const std::string& targetPassword) const;
 	const bool validateUsername(const std::string& username) const;
 	const bool validatePassword(const std::string& password) const;

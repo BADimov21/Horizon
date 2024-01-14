@@ -4,6 +4,13 @@
 #include "validate.h"
 #include "dataAccess.h"
 
+static std::string serialNumber() {
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<long long> dis(1000000000, 9999999999);
+	return std::to_string(dis(gen));
+}
+
 static void newWill() {
 	DataAccess* process = new DataAccess();
 	Validate* validator = new Validate();
@@ -86,8 +93,15 @@ static void newWill() {
 		std::cout << "\n";
 		std::cout << "Your will has successfully been submitted! Thank you one more time for trusting Horizon!";
 		std::cout << "\n";
+		if (validator->doesSerialNumberExist(serialNumber())) {
+				serialNumber();
+		}
+		else {
+			std::cout << "Important! This is the serial number of your digital will: " << serialNumber() << "." << "\n";
+			std::cout << "If you have any questions regarding your digital will, you want to delete it or edit it and etc., send us an email proving your identity and enclosing the code of your will for further assistance." << "\n";
+		}
 		process->addUserWill(username, accountPassword);
-		process->addDigitalWill(username, willPassword, names, id, address, will);
+		process->addDigitalWill(username, willPassword, names, id, address, will, serialNumber());
 	}
 
 	while (!WindowShouldClose()) {

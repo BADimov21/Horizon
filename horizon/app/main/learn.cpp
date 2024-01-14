@@ -2,6 +2,31 @@
 #include "layout.h"
 #include "textures.h"
 
+static void exampleWill()
+{
+	Textures* texture = new Textures();
+	Stars* star = new Stars();
+
+	const Font customFont = LoadFont("../assets/fonts/roboto.ttf");
+	SetTargetFPS(60);
+
+	for (size_t i = 0; i < star->maxStars; i++) {
+		star->position.x = (float)GetRandomValue(0, GetScreenWidth());
+		star->position.y = (float)GetRandomValue(0, GetScreenHeight());
+		star->color = WHITE;
+		star->speed = static_cast<float>(GetRandomValue(20, 30) * 0.1);
+		star->stars.push_back(*star);
+	}
+
+	while (!WindowShouldClose()) {
+		BeginDrawing();
+	    ClearBackground(RAYWHITE);
+		
+		
+		DrawTexture(texture->getCustomCursor(), GetMouseX(), GetMouseY(), WHITE);
+		EndDrawing();
+	}
+}
 static void digWillDef() {
 	Textures* texture = new Textures();
 	Stars* star = new Stars();
@@ -48,6 +73,12 @@ static void digWillDef() {
 		DrawTextEx(customFont, "digital will, information such as: user names, passwords, emails, keys to cyber wallets, etc., is ", Vector2{ (float)(GetScreenWidth() / 2) - 670, (float)(GetScreenHeight() / 2) - 50 }, 35, 1, WHITE);
 		DrawTextEx(customFont, "described. This information is used by the executor(s) to access the bequeathed digital assets. ", Vector2{ (float)(GetScreenWidth() / 2) - 670, (float)(GetScreenHeight() / 2) }, 35, 1, WHITE);
 
+        bool isMouseOverButton = CheckCollisionPointRec(mousePosition, makeAnExampleWill);
+        DrawRectangleRec(makeAnExampleWill, (isMouseOverButton ? GOLD : ORANGE));
+        DrawTextEx(customFont, "Example Will", Vector2{ ((float)GetScreenWidth() / 2) + 315, ((float)GetScreenHeight() / 2) + 270 }, 50, 1, BLACK);
+        if (isMouseOverButton && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+			exampleWill();
+        }
 
 		DrawTexture(texture->getResizedLogo(), GetScreenWidth() - 180, GetScreenHeight() - 180, WHITE);
 

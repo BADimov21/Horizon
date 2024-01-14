@@ -6,9 +6,9 @@ void DataAccess::addAccount(const std::string& username, const std::string& pass
     file.close();
 }
 
-void DataAccess::addDigitalWill(const std::string& username, const std::string& password, const std::string& names, const std::string& id, const std::string& address, const std::string& will) const {
+void DataAccess::addDigitalWill(const std::string& username, const std::string& password, const std::string& names, const std::string& id, const std::string& address, const std::string& will, const std::string& serialNumber) const {
     std::ofstream file("../data/digitalWills.csv", std::ios_base::app);
-    file << username << ',' << password << ',' << names << ',' << id << ',' << address << ',' << will << "\n";
+    file << username << ',' << password << ',' << names << ',' << id << ',' << address << ',' << will << ',' << serialNumber << "\n";
     file.close();
 }
 
