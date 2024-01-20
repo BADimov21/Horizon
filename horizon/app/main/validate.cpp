@@ -28,6 +28,11 @@ const bool Validate::doesWillExist(const std::string& username, const std::strin
 
 // Validates if the username meets the criteria.
 const bool Validate::validateUsername(const std::string& username) const {
+    if (username.find(' ') != std::string::npos) {
+        std::cout << "Username cannot contain spaces." << "\n";
+        return false;
+    }
+
     if (username.length() == 1) {
         std::cout << "Username cannot be a single character." << "\n";
         return false;
@@ -35,11 +40,6 @@ const bool Validate::validateUsername(const std::string& username) const {
 
     if (username.length() < 5) {
         std::cout << "Username must be at least 5 characters long." << "\n";
-        return false;
-    }
-
-    if (username.find(' ') != std::string::npos) {
-        std::cout << "Username cannot contain spaces." << "\n";
         return false;
     }
 
@@ -136,6 +136,11 @@ const bool Validate::validateWillPassword(const std::string& password) const {
         std::cout << "Password cannot consist only of letters." << "\n";
         return false;
     }
+    const std::string specialSymbols = "@#&$%*!";
+    if (password.find_first_of(specialSymbols) == std::string::npos) {
+        std::cout << "Your password is too weak. Include some of the enclosed special symbols: '@', '#', '&', '$', '%', '*', '!'." << "\n";
+        return false;
+    }
 
     bool hasUppercase = false;
     bool hasLowercase = false;
@@ -168,45 +173,50 @@ const bool Validate::validateWillPassword(const std::string& password) const {
 
 // Validates if the account password of the user meets the criteria.
 const bool Validate::validateAccountPassword(const std::string& password) const {
-    if (password.length() < 8) {
-        std::cout << "Password must be at least 8 characters long." << "\n";
-        return false;
-    }
-    if (password.find(' ') != std::string::npos) {
-        std::cout << "Password cannot contain spaces." << "\n";
-        return false;
-    }
-    if (std::all_of(password.begin(), password.end(), ::isdigit)) {
-        std::cout << "Password cannot consist only of numbers." << "\n";
-        return false;
-    }
-    if (std::all_of(password.begin(), password.end(), ::isalpha)) {
-        std::cout << "Password cannot consist only of letters." << "\n";
-        return false;
-    }
-
-    bool hasUppercase = false;
-    bool hasLowercase = false;
-    bool hasDigit = false;
-
-    for (char ch : password) {
-        if (std::isupper(ch)) {
-            hasUppercase = true;
-        }
-        else if (std::islower(ch)) {
-            hasLowercase = true;
-        }
-        else if (std::isdigit(ch)) {
-            hasDigit = true;
-        }
-    }
-
-    if (!hasUppercase || !hasLowercase || !hasDigit) {
-        std::cout << "Password must have at least one uppercase letter, one lowercase letter, and one digit." << "\n";
+	if (password.length() < 8) {
+		std::cout << "Password must be at least 8 characters long." << "\n";
+		return false;
+	}
+	if (password.find(' ') != std::string::npos) {
+		std::cout << "Password cannot contain spaces." << "\n";
+		return false;
+	}
+	if (std::all_of(password.begin(), password.end(), ::isdigit)) {
+		std::cout << "Password cannot consist only of numbers." << "\n";
+		return false;
+	}
+	if (std::all_of(password.begin(), password.end(), ::isalpha)) {
+		std::cout << "Password cannot consist only of letters." << "\n";
+		return false;
+	}
+    const std::string specialSymbols = "@#&$%*!";
+    if (password.find_first_of(specialSymbols) == std::string::npos) {
+        std::cout << "Your password is too weak. Include some of the enclosed special symbols: '@', '#', '&', '$', '%', '*', '!'." << "\n";
         return false;
     }
 
-    return true;
+	bool hasUppercase = false;
+	bool hasLowercase = false;
+	bool hasDigit = false;
+
+	for (char ch : password) {
+		if (std::isupper(ch)) {
+			hasUppercase = true;
+		}
+		else if (std::islower(ch)) {
+			hasLowercase = true;
+		}
+		else if (std::isdigit(ch)) {
+			hasDigit = true;
+		}
+	}
+
+	if (!hasUppercase || !hasLowercase || !hasDigit) {
+		std::cout << "Password must have at least one uppercase letter, one lowercase letter, and one digit." << "\n";
+		return false;
+	}
+
+	return true;
 }
 
 // Validates if the user's ID meets the criteria.
