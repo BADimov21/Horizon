@@ -39,4 +39,6 @@ public:
 	const bool validateWillEmail(const std::string& email) const;
 	// Validates if the user's account email meets the criteria and if it already exists in the database.
 	const bool validateAccountEmail(const std::string& email) const;
+	// Validates if the user's will meets the criteria.
+	const bool validateWill(const std::string& will) const;
 };

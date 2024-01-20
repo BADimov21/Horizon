@@ -100,6 +100,9 @@ static void newWill() {
 		std::cout << "You have entered all of your personal data. Thank you for your cooperation and trusting Horizon! Now you must write your will.";
 		std::cout << "\n";
 		std::getline(std::cin, will);
+		while (!validator->validateWill(will)) {
+			std::getline(std::cin, will);
+		}
 		std::cout << "\n";
 		std::cout << "Your will has successfully been submitted! Thank you one more time for trusting Horizon!";
 		std::cout << "\n";

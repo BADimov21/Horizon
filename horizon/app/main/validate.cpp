@@ -397,3 +397,12 @@ const bool Validate::validateWillEmail(const std::string& email) const {
 
     return true;
 }
+
+// Validates if the user's will meets the criteria.
+const bool Validate::validateWill(const std::string& will) const {
+    if (will.empty()) {
+        std::cout << "You must submit your will!" << "\n";
+        return false;
+    }
+    return true;
+}
