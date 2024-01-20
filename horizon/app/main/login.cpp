@@ -69,7 +69,6 @@ void User::newUser(std::string& username, std::string& password, std::string& em
 
 		if (!validator->validateUsername(username)) {
 			std::cout << "Error. Please try again!" << "\n";
-			std::cin >> username;
 		}
 		else if (validator->doesAccountExist(username)) {
 			std::cout << "Account already exists. Please try again with a different username!" << "\n";

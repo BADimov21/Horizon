@@ -3,7 +3,7 @@
 // Adds an account to the database "accounts".
 void DataAccess::addAccount(const std::string& username, const std::string& password, const std::string& email) const {
     std::ofstream file("../data/accounts.csv", std::ios_base::app);
-    file << username << ',' << password << ',' << email << "0" << "\n";
+    file << username << ',' << password << ',' << email << "\n";
     file.close();
 }
 
@@ -15,7 +15,7 @@ void DataAccess::addDigitalWill(const std::string& username, const std::string& 
 }
 
 // Checks if a given user already exists.
-static bool userExists(const std::string& username, const std::string& password, const std::string& email, std::vector<std::string>& lines) {
+static bool userExists(const std::string& username, const std::string& password, const std::string& email, const std::vector<std::string>& lines) {
     for (const auto& line : lines) {
         std::istringstream iss(line);
         std::string storedUsername, storedPassword, storedEmail;
@@ -40,6 +40,8 @@ void DataAccess::addUserWill(const std::string& username, const std::string& pas
     }
 
     if (userExists(username, password, email, lines)) {
+        file.clear();
+
         for (auto& line : lines) {
             std::istringstream iss(line);
             std::string storedUsername, storedPassword, storedEmail;
@@ -48,18 +50,20 @@ void DataAccess::addUserWill(const std::string& username, const std::string& pas
                 std::getline(iss, storedEmail, ',') &&
                 storedUsername == username && storedPassword == password && storedEmail == email) {
                 line = storedUsername + ',' + storedPassword + ',' + storedEmail + ',' + "1";
+                break;
             }
         }
+
         file.close();
         file.open("../data/accounts.csv", std::ios::out | std::ios::trunc);
         for (const auto& modifiedLine : lines) {
             file << modifiedLine << '\n';
         }
-
         std::cout << "Your will has been added to your account: " << username << "\n";
     }
     else {
         std::cout << "User not found. Will has not been added." << "\n";
     }
+
     file.close();
 }
