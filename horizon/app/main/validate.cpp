@@ -23,7 +23,7 @@ const bool Validate::doesWillExist(const std::string& username, const std::strin
             }
         }
     }
-    return false;
+    return true;
 }
 
 // Validates if the username meets the criteria.
